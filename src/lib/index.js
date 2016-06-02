@@ -12,7 +12,6 @@ function isEdgeOrIE() {
 export function cookiesync(key, action, handler, { tracing = false, logger = console, logLevel = 'info', idLength = 8, pollFrequency = 3000, path = '/', secure = false, httpOnly = false } = {}) {
   const log = (...args) => tracing ? logger[logLevel](...args) : () => {}
 
-  log('localsync: cookiesync fallback enabled')
   const cookie = require('react-cookie')
   const cookieOpts = { path, secure, httpOnly }
   const cookieKey = `localsync_fallback_${key}`
@@ -105,6 +104,7 @@ export default function localsync(key, action, handler, { tracing = false, logge
   should.exist(handler)
 
   if(isEdgeOrIE()) {
+    log('localsync: cookiesync fallback enabled')
     return cookiesync(key, action, handler, { tracing, logger, logLevel, ...cookiesyncOpts })
   }
   const log = (...args) => tracing ? logger[logLevel](...args) : () => {}
