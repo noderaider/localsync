@@ -16,23 +16,36 @@
 ```js
 import localsync from 'localsync'
 
-const action = username => username
-const handler = (value, old, url) => {
-  console.info(`Another tab at url ${url} had username updated from ${old.username} to ${value.username}.`)
+/** Create an action that will trigger a sync to other tabs. */
+const action = (userID, first, last) => ({ userID, first, last })
+
+/** Create a handler that will run on all tabs that did not trigger the sync. */
+const handler = (new, old, url) => {
+  console.info(`Another tab at url ${url} switched user from "${old.first} ${old.last}" to "${new.first} ${new.last}".`)
+  // do something with new.userID
 }
 
-const usernameSync = localsync('username', action, handler)
+/** Create a synchronizer. localsync supports N number of synchronizers for different things across your app. */
+const usersync = localsync('user', action, handler)
 
-usernameSync.start()
+/** Start synchronizing. */
+usersync.start()
 
-usernameSync.trigger('jim')
+/** IE / Edge do not support local storage across multiple tabs. localsync will automatically fallback to a cookie polling mechanism here. You don't need to do anything else. */
+if(usersync.isFallback)
+  console.warn('browser doesnt support local storage synchronization, falling back to cookie synchronization.')
+
+/** Trigger an action that will get handled on other tabs. */
+usersync.trigger(1, 'jimmy', 'john')
 
 setTimeout(() => {
-  usernameSync.trigger('jane')
+  /** Trigger another action in 5 seconds. */
+  usersync.trigger(2, 'jane', 'wonka')
 }, 5000)
 
 setTimeout(() => {
-  if(usernameSync.isRunning)
-    usernameSync.stop()
+  /** If its still running, stop syncing in 10 seconds. */
+  if(usersync.isRunning)
+    usersync.stop()
 }, 10000)
 ```
