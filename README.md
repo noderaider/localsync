@@ -14,13 +14,23 @@
 ```js
 import localsync from 'localsync'
 
-const { startSync, stopSync, isSyncRunning } = localsync((value, old, url) => {
+const sync = username => username
+const handler = (value, old, url) => {
   console.info(`Another tab at url ${url} had username updated from ${old.username} to ${value.username}.`)
-})
+}
+
+const { startSync, stopSync, triggerSync, isSyncRunning, isFallback } = localsync('username', sync, handler)
 
 startSync()
+
+triggerSync('jim')
+
 setTimeout(() => {
-  if(isSyncRunning())
+  triggerSync('jane')
+}, 5000)
+
+setTimeout(() => {
+  if(isSyncRunning)
     stopSync()
 }, 10000)
 ```
