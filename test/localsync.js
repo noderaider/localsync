@@ -46,14 +46,9 @@ describe('lib', () => {
     })
 
     describe('uses fallback', () => {
-      const userAgentsIE =  [ 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; AS; rv:11.0) like Gecko'
-                            , 'Mozilla/5.0 (compatible, MSIE 11, Windows NT 6.3; Trident/7.0;  rv:11.0) like Gecko'
-                            , 'Mozilla/5.0 (compatible; MSIE 10.6; Windows NT 6.1; Trident/5.0; InfoPath.2; SLCC1; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; .NET CLR 2.0.50727) 3gpp-gba UNTRUSTED/1.0'
-                            , 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 7.0; InfoPath.3; .NET CLR 3.1.40767; Trident/6.0; en-IN)'
-                            , 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; WOW64; Trident/6.0)'
-                            ]
-      const navigatorsIE =  [ { appName: 'Microsoft Internet Explorer'}
-                            , { appName: 'Netscape', appVersion: 'Trident/7.0'}
+      const navigatorsIE =  [ { appName: 'Microsoft Internet Explorer' }
+                            , { appName: 'Netscape', appVersion: 'Trident/7.0' }
+                            , { appName: 'Netscape', appVersion: '5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10240' }
                             ]
       for(let nav of navigatorsIE) {
         describe('works for navigator', () => {
