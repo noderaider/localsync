@@ -8,30 +8,23 @@ function isEdgeOrIE() {
   return navigator.appName === 'Microsoft Internet Explorer' || (navigator.appName === 'Netscape' && navigator.appVersion.indexOf('Trident') > -1)
 }
 
-const createInstanceID = (N = 8) => (Math.random().toString(36)+'00000000000000000').slice(2, N+2)
 
-const createCookieKey = key => `localsync_fb_${key}`
-
-
-function cookiesync(key, sync, handler, { pollFrequency = 3000 } = {}) {
+function cookiesync(key, action, handler, { pollFrequency = 3000 } = {}) {
   const cookie = require('react-cookie')
-  const cookieKey = createCookieKey(key)
-  const instanceID = createInstanceID()
-  let isSyncRunning = false
-
+  const cookieKey = `localsync_fb_${key}`
+  const instanceID = (N => (Math.random().toString(36)+'00000000000000000').slice(2, N+2))(8)
   const loadCookie = () => cookie.load(cookieKey)
   const saveCookie = value => cookie.save(cookieKey, value)
 
-
-
-  const triggerSync = (...args) => {
-    const value = sync(...args)
+  let isRunning = false
+  const trigger = (...args) => {
+    const value = action(...args)
     saveCookie(cookieKey, value)
   }
 
 
   let intervalID = null
-  const startSync = () => {
+  const start = () => {
     let last = loadCookie()
     if(!last) {
       last = { instanceID }
@@ -53,53 +46,53 @@ function cookiesync(key, sync, handler, { pollFrequency = 3000 } = {}) {
         handler(currentValue)
       lastValue = currentValue
     }, pollFrequency)
-    isSyncRunning = true
+    isRunning = true
   }
 
-  const stopSync = () => {
+  const stop = () => {
     clearInterval(intervalID)
-    isSyncRunning = false
+    isRunning = false
   }
 
-  return  { startSync
-          , stopSync
-          , triggerSync
-          , get isSyncRunning () { return isSyncRunning }
+  return  { start
+          , stop
+          , trigger
+          , get isRunning () { return isRunning }
           , isFallback: true
           , instanceID
           }
 }
 
 
-export default function localsync(key, sync, handler, opts = {}) {
+export default function localsync(key, action, handler, opts = {}) {
   should.exist(key)
-  should.exist(sync)
+  should.exist(action)
   should.exist(handler)
 
   if(isEdgeOrIE())
-    return cookiesync(key, sync, handler, opts)
+    return cookiesync(key, action, handler, opts)
 
-  let isSyncRunning = false
+  let isRunning = false
 
-  const triggerSync = (...args) => {
-    const value = sync(...args)
+  const trigger = (...args) => {
+    const value = action(...args)
     ls(key, value)
   }
 
-  const startSync = () => {
+  const start = () => {
     ls.on(key, handler)
-    isSyncRunning = true
+    isRunning = true
   }
 
-  const stopSync = () => {
+  const stop = () => {
     ls.off(key, handler)
-    isSyncRunning = false
+    isRunning = false
   }
 
-  return  { startSync
-          , stopSync
-          , triggerSync
-          , get isSyncRunning () { return isSyncRunning }
+  return  { start
+          , stop
+          , trigger
+          , get isRunning () { return isRunning }
           , isFallback: false
           }
 }
