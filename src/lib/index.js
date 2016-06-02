@@ -102,12 +102,12 @@ export default function localsync(key, action, handler, { tracing = false, logge
   should.exist(key)
   should.exist(action)
   should.exist(handler)
+  const log = (...args) => tracing ? logger[logLevel](...args) : () => {}
 
   if(isEdgeOrIE()) {
     log('localsync: cookiesync fallback enabled')
     return cookiesync(key, action, handler, { tracing, logger, logLevel, ...cookiesyncOpts })
   }
-  const log = (...args) => tracing ? logger[logLevel](...args) : () => {}
 
   let isRunning = false
 
