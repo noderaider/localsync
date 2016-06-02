@@ -1,8 +1,5 @@
 import rewire from 'rewire'
-import chai from 'chai'
-const chaiAsPromised = require('chai-as-promised')
-chai.use(chaiAsPromised)
-const should = chai.should()
+const should = require('chai').should()
 
 describe('lib', () => {
   const lib = rewire('../lib')
