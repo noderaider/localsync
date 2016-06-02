@@ -21,7 +21,7 @@ export default ({}) => ({ 'start': 'run-p build-watch test-watch'
 
                           /** TEST */
                         , 'pretest': 'npm run build'
-                        , 'test': 'mocha --harmony --es_staging'
+                        , 'test': 'mocha --harmony --es_staging --require test/require'
                         , 'test-watch': 'npm run test -- --watch'
 
                           /** RELEASE */
