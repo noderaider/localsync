@@ -1,10 +1,19 @@
 [![NPM](https://raw.githubusercontent.com/noderaider/localsync/master/public/images/localsync.gif)](https://npmjs.com/packages/localsync)
 
-**a lightweight module to sync JS objects in realtime across tabs / windows of a browser. Uses local storage event emitters and falls back to cookie polling if using an unsupported browser (IE 9+ / Edge). Isomorphic. Tested with mocha.**
+**a lightweight module to sync JS objects in realtime across tabs / windows of a browser.**
+
+#### Features
+
+* Uses local storage event emitters to sync objects in realtime across tabs.
+* Never calls the tab that the event occurred on.
+* Falls back to cookie polling internally if using an unsupported browser (IE 9+ / Edge).
+* Isomorphic.
+* Tested with mocha.
 
 [![Build Status](https://travis-ci.org/noderaider/localsync.svg?branch=master)](https://travis-ci.org/noderaider/localsync)
 
 [![NPM](https://nodei.co/npm/localsync.png?stars=true&downloads=true)](https://nodei.co/npm/localsync/)
+
 
 ## Install
 
