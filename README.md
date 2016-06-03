@@ -29,9 +29,9 @@ import localsync from 'localsync'
 const action = (userID, first, last) => ({ userID, first, last })
 
 /** Create a handler that will run on all tabs that did not trigger the sync. */
-const handler = (new, old, url) => {
-  console.info(`Another tab at url ${url} switched user from "${old.first} ${old.last}" to "${new.first} ${new.last}".`)
-  // do something with new.userID
+const handler = (value, old, url) => {
+  console.info(`Another tab at url ${url} switched user from "${old.first} ${old.last}" to "${value.first} ${value.last}".`)
+  // do something with value.userID
 }
 
 /** Create a synchronizer. localsync supports N number of synchronizers for different things across your app. */
@@ -61,22 +61,24 @@ setTimeout(() => {
 
 ## Documentation
 
-`localsync(key: string, action: (...args) => payload, handler: payload => {}, [opts: Object])`
+```js
+localsync(key: string, action: (...args) => payload, handler: payload => {}, [opts: Object]): { start, stop, trigger, isRunning, isFallback }
+```
 
 **opts**
 
-name      | default
-----      | -------
-tracing   | false
-logger    | console
-loglevel  | 'info'
+**name**    | **type**    | **default**   | **description**
+--------    | --------    | -----------   | ---------------
+`tracing`   | `boolean`   | `false`       | toggles tracing for debugging purposes
+`logger`    | `Object`    | `console`     | the logger object to trace to
+`loglevel`  | `string`    | `'info'`      | the log level to use when tracing (`error`, `warn`, `info`, `trace`)
 
-**IE / Edge fallback props for cookiesync**
+**IE / Edge fallback props for `cookiesync`**
 
-name          | default
-----          | -------
-idLength      | 8
-pollFrequency | 3000 (MS)
-path          | '/'
-secure        | false
-httpOnly      | false
+**name**        | **type**      | **default**   | **description**
+--------        | --------      | -----------   | ---------------
+`pollFrequency` | `number`      | `3000`        | the number in milliseconds that should be used for cookie polling
+`idLength`      | `number`      | `8`           | the number of characters to use for tracking the current instance (tab)
+`path`          | `string`      | `'/'`         | The path to use for cookies
+`secure`        | `boolean`     | `false`       | Whether to set the secure flag on cookies or not (not recommended)
+`httpOnly`      | `boolean`     | `false`       | Whether to set the http only flag on cookies or not
