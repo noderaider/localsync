@@ -49,3 +49,25 @@ setTimeout(() => {
     usersync.stop()
 }, 10000)
 ```
+
+## Documentation
+
+`localsync(key: string, action: (...args) => payload, handler: payload => {}, [opts: Object])`
+
+**opts**
+
+name      | default
+----      | -------
+tracing   | false
+logger    | console
+loglevel  | 'info'
+
+**IE / Edge fallback props for cookiesync**
+
+name          | default
+----          | -------
+idLength      | 8
+pollFrequency | 3000 (MS)
+path          | '/'
+secure        | false
+httpOnly      | false
