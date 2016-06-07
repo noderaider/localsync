@@ -30,7 +30,7 @@
     "test-watch": "npm run test -- --watch",
     "prerelease": "npm run test",
     "release": "npm version patch && npm publish",
-    "_postrelease": "npm run release-gh-pages",
+    "postrelease": "npm run release-gh-pages",
     "prerelease-gh-pages": "npm run doc",
     "release-gh-pages": "run-s gh-pages-subtree gh-pages-push gh-pages-delete",
     "postrelease-gh-pages": "npm run clean-doc && npm run git-save -- clean && git push -u origin master --follow-tags",
