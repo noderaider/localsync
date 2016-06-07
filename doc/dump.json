@@ -10,7 +10,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import cookie from 'react-cookie'\r\nconst should = require('chai').should()\r\n\r\n\r\nexport default function cookiesync(key, action, handler, { tracing = false, logger = console, logLevel = 'info', idLength = 8, pollFrequency = 3000, path = '/', secure = false, httpOnly = false } = {}) {\r\n  should.exist(key)\r\n  should.exist(action)\r\n  should.exist(handler)\r\n  const log = (...args) => tracing ? logger[logLevel](...args) : () => {}\r\n  const cookieOpts = { path, secure, httpOnly }\r\n  const cookieKey = `localsync_fallback_${key}`\r\n  const instanceID = (N => (Math.random().toString(36)+'00000000000000000').slice(2, N+2))(idLength)\r\n  const loadCookie = () => {\r\n    try {\r\n      const value = cookie.load(cookieKey, false)\r\n      if(typeof value !== 'undefined') {\r\n        const { instanceID, payload } = value\r\n        should.exist(instanceID, `cookiesync cookies must have an instanceID associated => ${JSON.stringify(value)}`)\r\n        instanceID.should.be.a('string').and.have.lengthOf(idLength)\r\n        should.exist(payload, `cookiesync cookies must have a payload associated => ${JSON.stringify(value)}`)\r\n      }\r\n      log('cookiesync#loadCookie', value)\r\n      return value\r\n    } catch(err) {\r\n      logger.error(err, `cookiesync#loadCookie => error occurred in cookiesync, wiping cookie with key ${cookieKey}`)\r\n      cookie.remove(cookieKey)\r\n    }\r\n  }\r\n  const saveCookie = (...args) => {\r\n    args.should.be.lengthOf(1)\r\n    const [payload] = args\r\n    const value = { instanceID, payload }\r\n    log('cookisync#saveCookie', instanceID, payload)\r\n    cookie.save(cookieKey, value, cookieOpts)\r\n  }\r\n\r\n  let isRunning = false\r\n  const trigger = (...args) => {\r\n    log('cookiesync#trigger', instanceID, ...args)\r\n    const payload = action(...args)\r\n    log('cookiesync#trigger => payload', payload)\r\n    saveCookie(payload)\r\n  }\r\n\r\n  let intervalID = null\r\n  const start = () => {\r\n    log('cookiesync#start', instanceID)\r\n    let last = loadCookie()\r\n    if(!last) {\r\n      log('cookiesync#start: nolast', instanceID)\r\n      last = { instanceID }\r\n      saveCookie(last)\r\n    }\r\n    intervalID = setInterval(function() {\r\n      log('cookiesync#poll', instanceID)\r\n      let current = loadCookie()\r\n      if(!current) {\r\n        log('cookiesync#poll: nocurrent', instanceID)\r\n        current = last\r\n        saveCookie(current)\r\n      }\r\n      /** DONT NOTIFY IF SAME TAB */\r\n      if(current.instanceID === instanceID) {\r\n        log('cookiesync#poll: sameinstance', instanceID)\r\n        return\r\n      }\r\n\r\n      if(JSON.stringify(last.payload) != JSON.stringify(current.payload)) {\r\n        log('cookiesync#poll: INVOKE|instanceID =', instanceID, '|current.instanceID =', current.instanceID, '|last.instanceID =', last.instanceID, '|last.payload =', JSON.stringify(last.payload), '|current.payload =', JSON.stringify(current.payload))\r\n        handler(current.payload)\r\n        last = current\r\n      } else {\r\n        log('cookiesync#poll: noinvoke|instanceID =', instanceID, '|current.instanceID =', current.instanceID, '|last.instanceID =', last.instanceID, '|last.payload =', JSON.stringify(last.payload), '|current.payload =', JSON.stringify(current.payload))\r\n      }\r\n    }, pollFrequency)\r\n    isRunning = true\r\n  }\r\n\r\n  const stop = () => {\r\n    log('cookiesync#stop', instanceID)\r\n    clearInterval(intervalID)\r\n    isRunning = false\r\n  }\r\n\r\n  return  { start\r\n          , stop\r\n          , trigger\r\n          , get isRunning () { return isRunning }\r\n          , isFallback: true\r\n          , instanceID\r\n          }\r\n}\r\n"
+    "content": "import cookie from 'react-cookie'\r\nconst should = require('chai').should()\r\n\r\n/**\r\n * Creates a synchronizer which uses cookie polling to transmit objects to other tabs.\r\n * @param  {string}             key               The key to synchronize on.\r\n * @param  {function} action            The action to run when trigger is executed. Should return the payload to be transmitted to the handlers on other tabs.\r\n * @param  {function}   handler           The handler which is executed on other tabs when a synchronization is triggered. Argument is the return value of the action.\r\n * @param  {boolean} [options.tracing=false]      Option to turn on tracing for debugging.\r\n * @param  {Object}  [options.logger=console]     The logger to debug to.\r\n * @param  {string}  [options.logLevel=info]      The log level to trace at.\r\n * @param  {number}  [options.idLength=8]         The number of characters to use for unique instance ID.\r\n * @param  {number}  [options.pollFrequency=3000] The frequency (in milliseconds) to poll at.\r\n * @param  {string}  [options.path='/']           The path to store the cookie at.\r\n * @param  {boolean} [options.secure=false]       Flag to set the cookies secure flag.\r\n * @param  {boolean} [options.httpOnly=false]     Flag to set the cookies httpOnly flag.\r\n */\r\nexport default function cookiesync(key, action, handler, { tracing = false, logger = console, logLevel = 'info', idLength = 8, pollFrequency = 3000, path = '/', secure = false, httpOnly = false } = {}) {\r\n  should.exist(key)\r\n  should.exist(action)\r\n  should.exist(handler)\r\n  const log = (...args) => tracing ? logger[logLevel](...args) : () => {}\r\n  const cookieOpts = { path, secure, httpOnly }\r\n  const cookieKey = `localsync_fallback_${key}`\r\n  const instanceID = (N => (Math.random().toString(36)+'00000000000000000').slice(2, N+2))(idLength)\r\n  const loadCookie = () => {\r\n    try {\r\n      const value = cookie.load(cookieKey, false)\r\n      if(typeof value !== 'undefined') {\r\n        const { instanceID, payload } = value\r\n        should.exist(instanceID, `cookiesync cookies must have an instanceID associated => ${JSON.stringify(value)}`)\r\n        instanceID.should.be.a('string').and.have.lengthOf(idLength)\r\n        should.exist(payload, `cookiesync cookies must have a payload associated => ${JSON.stringify(value)}`)\r\n      }\r\n      log('cookiesync#loadCookie', value)\r\n      return value\r\n    } catch(err) {\r\n      logger.error(err, `cookiesync#loadCookie => error occurred in cookiesync, wiping cookie with key ${cookieKey}`)\r\n      cookie.remove(cookieKey)\r\n    }\r\n  }\r\n  const saveCookie = (...args) => {\r\n    args.should.be.lengthOf(1)\r\n    const [payload] = args\r\n    const value = { instanceID, payload }\r\n    log('cookisync#saveCookie', instanceID, payload)\r\n    cookie.save(cookieKey, value, cookieOpts)\r\n  }\r\n\r\n  let isRunning = false\r\n  const trigger = (...args) => {\r\n    log('cookiesync#trigger', instanceID, ...args)\r\n    const payload = action(...args)\r\n    log('cookiesync#trigger => payload', payload)\r\n    saveCookie(payload)\r\n  }\r\n\r\n  let intervalID = null\r\n  const start = () => {\r\n    log('cookiesync#start', instanceID)\r\n    let last = loadCookie()\r\n    if(!last) {\r\n      log('cookiesync#start: nolast', instanceID)\r\n      last = { instanceID }\r\n      saveCookie(last)\r\n    }\r\n    intervalID = setInterval(function() {\r\n      log('cookiesync#poll', instanceID)\r\n      let current = loadCookie()\r\n      if(!current) {\r\n        log('cookiesync#poll: nocurrent', instanceID)\r\n        current = last\r\n        saveCookie(current)\r\n      }\r\n      /** DONT NOTIFY IF SAME TAB */\r\n      if(current.instanceID === instanceID) {\r\n        log('cookiesync#poll: sameinstance', instanceID)\r\n        return\r\n      }\r\n\r\n      if(JSON.stringify(last.payload) != JSON.stringify(current.payload)) {\r\n        log('cookiesync#poll: INVOKE|instanceID =', instanceID, '|current.instanceID =', current.instanceID, '|last.instanceID =', last.instanceID, '|last.payload =', JSON.stringify(last.payload), '|current.payload =', JSON.stringify(current.payload))\r\n        handler(current.payload)\r\n        last = current\r\n      } else {\r\n        log('cookiesync#poll: noinvoke|instanceID =', instanceID, '|current.instanceID =', current.instanceID, '|last.instanceID =', last.instanceID, '|last.payload =', JSON.stringify(last.payload), '|current.payload =', JSON.stringify(current.payload))\r\n      }\r\n    }, pollFrequency)\r\n    isRunning = true\r\n  }\r\n\r\n  const stop = () => {\r\n    log('cookiesync#stop', instanceID)\r\n    clearInterval(intervalID)\r\n    isRunning = false\r\n  }\r\n\r\n  return  { start\r\n          , stop\r\n          , trigger\r\n          , get isRunning () { return isRunning }\r\n          , isFallback: true\r\n          , instanceID\r\n          }\r\n}\r\n"
   },
   {
     "__docId__": 1,
@@ -45,36 +45,134 @@
     "export": true,
     "importPath": "localsync/lib/cookiesync.js",
     "importStyle": "cookiesync",
-    "description": null,
-    "lineNumber": 5,
-    "undocument": true,
+    "description": "Creates a synchronizer which uses cookie polling to transmit objects to other tabs.",
+    "lineNumber": 18,
     "params": [
       {
-        "name": "key",
+        "nullable": null,
         "types": [
-          "*"
-        ]
-      },
-      {
-        "name": "action",
-        "types": [
-          "*"
-        ]
-      },
-      {
-        "name": "handler",
-        "types": [
-          "*"
-        ]
-      },
-      {
-        "name": "objectPattern3",
-        "optional": true,
-        "types": [
-          "{\"tracing\": *, \"logger\": *, \"logLevel\": *, \"idLength\": *, \"pollFrequency\": *, \"path\": *, \"secure\": *, \"httpOnly\": *}"
+          "string"
         ],
-        "defaultRaw": {},
-        "defaultValue": "{}"
+        "spread": false,
+        "optional": false,
+        "name": "key",
+        "description": "The key to synchronize on."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "action",
+        "description": "The action to run when trigger is executed. Should return the payload to be transmitted to the handlers on other tabs."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "handler",
+        "description": "The handler which is executed on other tabs when a synchronization is triggered. Argument is the return value of the action."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "false",
+        "defaultRaw": false,
+        "name": "options.tracing",
+        "description": "Option to turn on tracing for debugging."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "console",
+        "defaultRaw": "console",
+        "name": "options.logger",
+        "description": "The logger to debug to."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "info",
+        "defaultRaw": "info",
+        "name": "options.logLevel",
+        "description": "The log level to trace at."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "8",
+        "defaultRaw": 8,
+        "name": "options.idLength",
+        "description": "The number of characters to use for unique instance ID."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "3000",
+        "defaultRaw": 3000,
+        "name": "options.pollFrequency",
+        "description": "The frequency (in milliseconds) to poll at."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "'/'",
+        "defaultRaw": "'/'",
+        "name": "options.path",
+        "description": "The path to store the cookie at."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "false",
+        "defaultRaw": false,
+        "name": "options.secure",
+        "description": "Flag to set the cookies secure flag."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "false",
+        "defaultRaw": false,
+        "name": "options.httpOnly",
+        "description": "Flag to set the cookies httpOnly flag."
       }
     ],
     "return": {

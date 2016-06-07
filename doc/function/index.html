@@ -54,13 +54,14 @@
     <td>
       <div>
         <p>
-           <span data-ice="name"><span><a href="function/index.html#static-function-cookiesync">cookiesync</a></span></span><span data-ice="signature">(key: <span>*</span>, action: <span>*</span>, handler: <span>*</span>, objectPattern3: {&quot;tracing&quot;: <span>*</span>, &quot;logger&quot;: <span>*</span>, &quot;logLevel&quot;: <span>*</span>, &quot;idLength&quot;: <span>*</span>, &quot;pollFrequency&quot;: <span>*</span>, &quot;path&quot;: <span>*</span>, &quot;secure&quot;: <span>*</span>, &quot;httpOnly&quot;: <span>*</span>}): <span>*</span></span>
+           <span data-ice="name"><span><a href="function/index.html#static-function-cookiesync">cookiesync</a></span></span><span data-ice="signature">(key: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, action: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>, handler: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>): <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Creates a synchronizer which uses cookie polling to transmit objects to other tabs.</p>
+</div>
       </div>
     </td>
     <td>
@@ -105,18 +106,19 @@
     
     
     
-    <span data-ice="name">cookiesync</span><span data-ice="signature">(key: <span>*</span>, action: <span>*</span>, handler: <span>*</span>, objectPattern3: {&quot;tracing&quot;: <span>*</span>, &quot;logger&quot;: <span>*</span>, &quot;logLevel&quot;: <span>*</span>, &quot;idLength&quot;: <span>*</span>, &quot;pollFrequency&quot;: <span>*</span>, &quot;path&quot;: <span>*</span>, &quot;secure&quot;: <span>*</span>, &quot;httpOnly&quot;: <span>*</span>}): <span>*</span></span>
+    <span data-ice="name">cookiesync</span><span data-ice="signature">(key: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, action: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>, handler: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>): <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/cookiesync.js.html#lineNumber5">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/cookiesync.js.html#lineNumber18">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import cookiesync from &apos;<span><a href="file/lib/cookiesync.js.html#lineNumber5">localsync/lib/cookiesync.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import cookiesync from &apos;<span><a href="file/lib/cookiesync.js.html#lineNumber18">localsync/lib/cookiesync.js</a></span>&apos;</code></pre></div>
   
   
-  
+  <div data-ice="description"><p>Creates a synchronizer which uses cookie polling to transmit objects to other tabs.</p>
+</div>
 
   
 
@@ -130,28 +132,88 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" data-depth="0">key</td>
-      <td data-ice="type"><span>*</span></td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>The key to synchronize on.</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" data-depth="0">action</td>
-      <td data-ice="type"><span>*</span></td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>The action to run when trigger is executed. Should return the payload to be transmitted to the handlers on other tabs.</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" data-depth="0">handler</td>
-      <td data-ice="type"><span>*</span></td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>The handler which is executed on other tabs when a synchronization is triggered. Argument is the return value of the action.</p>
+</td>
     </tr>
-<tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">objectPattern3</td>
-      <td data-ice="type">{&quot;tracing&quot;: <span>*</span>, &quot;logger&quot;: <span>*</span>, &quot;logLevel&quot;: <span>*</span>, &quot;idLength&quot;: <span>*</span>, &quot;pollFrequency&quot;: <span>*</span>, &quot;path&quot;: <span>*</span>, &quot;secure&quot;: <span>*</span>, &quot;httpOnly&quot;: <span>*</span>}</td>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.tracing</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li>
-<li>default: {}</li></ul></td>
-      <td data-ice="description"></td>
+<li>default: false</li></ul></td>
+      <td data-ice="description"><p>Option to turn on tracing for debugging.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.logger</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: console</li></ul></td>
+      <td data-ice="description"><p>The logger to debug to.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.logLevel</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: info</li></ul></td>
+      <td data-ice="description"><p>The log level to trace at.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.idLength</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 8</li></ul></td>
+      <td data-ice="description"><p>The number of characters to use for unique instance ID.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.pollFrequency</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 3000</li></ul></td>
+      <td data-ice="description"><p>The frequency (in milliseconds) to poll at.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.path</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: &apos;/&apos;</li></ul></td>
+      <td data-ice="description"><p>The path to store the cookie at.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.secure</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: false</li></ul></td>
+      <td data-ice="description"><p>Flag to set the cookies secure flag.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.httpOnly</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: false</li></ul></td>
+      <td data-ice="description"><p>Flag to set the cookies httpOnly flag.</p>
+</td>
     </tr>
 </tbody>
   </table>
