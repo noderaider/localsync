@@ -1,0 +1,21 @@
+{
+  "coverage": "0%",
+  "expectCount": 2,
+  "actualCount": 0,
+  "files": {
+    "lib/cookiesync.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "lib/localsync.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        4
+      ]
+    }
+  }
+}
