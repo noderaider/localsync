@@ -11,6 +11,7 @@
 * Tested with mocha.
 
 [![Build Status](https://travis-ci.org/noderaider/localsync.svg?branch=master)](https://travis-ci.org/noderaider/localsync)
+[![codecov](https://codecov.io/gh/noderaider/localsync/branch/master/graph/badge.svg)](https://codecov.io/gh/noderaider/localsync)
 
 [![NPM](https://nodei.co/npm/localsync.png?stars=true&downloads=true)](https://nodei.co/npm/localsync/)
 

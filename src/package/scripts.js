@@ -10,9 +10,10 @@
 export default ({}) => ({ 'start': 'run-p build-watch test-watch'
 
                           /** CLEAN EVERYTHING PRE BUILD */
-                        , 'clean': 'run-p clean-lib clean-doc'
+                        , 'clean': 'run-p clean-lib clean-doc clean-test'
                         , 'clean-lib': 'rimraf lib'
                         , 'clean-doc': 'rimraf doc'
+                        , 'clean-test': 'rimraf coverage.lcov .nyc_output'
 
                           /** COMPILE */
                         , 'prebuild': 'npm run clean'
@@ -20,9 +21,11 @@ export default ({}) => ({ 'start': 'run-p build-watch test-watch'
                         , 'build-watch': 'npm run build -- --watch'
 
                           /** TEST */
-                        , 'pretest': 'npm run build'
-                        , 'test': 'mocha --harmony --es_staging --require test/require'
-                        , 'test-watch': 'npm run test -- --watch'
+                        , 'pretest-mocha': 'npm run build'
+                        , 'test-mocha': 'mocha --harmony --es_staging --require test/require'
+                        , 'test': 'nyc npm run test-mocha'
+                        , 'coverage': 'nyc report --reporter=text-lcov > coverage.lcov && codecov'
+                        , 'test-watch': 'npm run test-mocha -- --watch'
 
                           /** RELEASE */
                         , 'prerelease': 'npm run test'
