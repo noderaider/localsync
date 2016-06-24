@@ -22,6 +22,7 @@
 
 `npm install -S localsync`
 
+___
 
 ## How to use
 
@@ -64,35 +65,42 @@ setTimeout(() => {
 }, 10000)
 ```
 
-## Structure
+___
+
+## Structure and Roadmap
 
 **localsync has a singular purpose: to synchronize events from one client to many using a common interface and the least invasive mechanism for the current browsing medium.**
 
 Internally, localsync is comprised of several small 'sync' packages that all adhere to the common localsync interface. The main localsync package does no actual synchronization on its own but rather determines the most appropriate synchronization strategy and calls upon the necessary packages to invoke it. All the packages with brief descriptions are listed here:
 
-##### 1.x.x - Guaranteed synchronization between clients of the same browser (Chrome <=> Chrome, Firefox <=> Firefox, or IE <=> IE)
+#### 1.x.x
+
+**Guaranteed synchronization between clients of the same browser (Chrome <=> Chrome, Firefox <=> Firefox, or IE <=> IE)**
 
 * **[localsync](https://npmjs.com/packages/localsync)** - Determines synchronization mechanism and invokes it.
 
-**Mechanisms**
+*Mechanism packages*
 
 * **[:bullettrain_front: storagesync](https://npmjs.com/packages/storagesync)** - Synchronizes data in a push fashion using local storage 'storage' event for a given browser.
 * **[:cookie: cookiesync](https://npmjs.com/packages/cookiesync)** - Synchronizes data via cookie polling mechanism for a given browser.
 * **[:computer: serversync](https://npmjs.com/packages/serversync)** - Mocks the localsync interface on server environments but does no actual synchronization (for now).
 
-##### 2.x.x (In Progress) - The primary goal of 2.0 is to enable localsync *cross-browser* (e.g. Chrome to FireFox synchronization) for a single localsync client channel. In addition to the above mechanisms, the following mechanisms are being implemented for 2.0.
+#### 2.x.x (In Progress)
+
+**The primary goal of 2.0 is to enable localsync *cross-browser* (e.g. Chrome to FireFox synchronization) for a single localsync client channel. In addition to the above mechanisms, the following mechanisms are being implemented for 2.0.**
 
 * **[:rocket: webrtcsync](https://npmjs.com/packages/webrtcsync)** - Synchronizes data across any supporting browser using WebRTC technology.
 * **[:airplane: socketsync](https://npmjs.com/packages/socketsync)** - Synchronizes data across any supporting browser using web sockets technology (fallback for browsers not supporting WebRTC).
 
+___
 
-## Interface
+## API
 
 ```js
 localsync(key: string, action: (...args) => payload, handler: payload => {}, [opts: Object]): { start, stop, trigger, isRunning, isFallback }
 ```
 
-##### Input
+#### Input
 
 **key**: a string that is used for this synchronization instance (you may have multiple instances of localsync each with different keys to sync different types of data).
 
@@ -119,7 +127,7 @@ localsync(key: string, action: (...args) => payload, handler: payload => {}, [op
 `httpOnly`      | `boolean`     | `false`       | Whether to set the http only flag on cookies or not
 
 
-##### Output
+#### Output
 
 **Interface of returned localsync object**
 
