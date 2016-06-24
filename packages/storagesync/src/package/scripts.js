@@ -28,7 +28,7 @@ export default ({}) => ({ 'start': 'run-p build-watch test-watch'
                         , 'test-watch': 'npm run test-mocha -- --watch'
 
                           /** RELEASE */
-                        , '_prerelease': 'npm run test'
+                        , 'prerelease': 'npm run test'
                         , 'release': 'npm version patch && npm publish'
                         , 'postrelease': 'npm run release-gh-pages'
 

@@ -1,8 +1,9 @@
 [![NPM](https://raw.githubusercontent.com/noderaider/localsync/master/public/images/localsync.gif)](https://npmjs.com/packages/localsync)
 
-**a lightweight module to sync JS objects in realtime across tabs / windows of a browser.**
+### storagesync
 
-**Now a modular lerna repo! Synchronization strategies have been split out into separate packages.**
+
+**a lightweight module to sync JS objects in realtime across tabs / windows of a browser *LOCAL STORAGE VERSION*.**
 
 #### Features
 
@@ -12,6 +13,7 @@
 * Isomorphic.
 * Tested with mocha.
 
+
 [![Build Status](https://travis-ci.org/noderaider/localsync.svg?branch=master)](https://travis-ci.org/noderaider/localsync)
 [![codecov](https://codecov.io/gh/noderaider/localsync/branch/master/graph/badge.svg)](https://codecov.io/gh/noderaider/localsync)
 
@@ -20,13 +22,13 @@
 
 ## Install
 
-`npm i -S localsync`
+`npm i -S storagesync`
 
 
 ## How to use
 
 ```js
-import localsync from 'localsync'
+import storagesync from 'storagesync'
 
 /** Create an action that will trigger a sync to other tabs. */
 const action = (userID, first, last) => ({ userID, first, last })
@@ -37,13 +39,13 @@ const handler = (value, old, url) => {
   // do something with value.userID
 }
 
-/** Create a synchronizer. localsync supports N number of synchronizers for different things across your app. */
-const usersync = localsync('user', action, handler)
+/** Create a synchronizer. storagesync supports N number of synchronizers for different things across your app. */
+const usersync = storagesync('user', action, handler)
 
 /** Start synchronizing. */
 usersync.start()
 
-/** IE / Edge do not support local storage across multiple tabs. localsync will automatically fallback to a cookie polling mechanism here. You don't need to do anything else. */
+/** IE / Edge do not support local storage across multiple tabs. storagesync will automatically fallback to a cookie polling mechanism here. You don't need to do anything else. */
 if(usersync.isFallback)
   console.warn('browser doesnt support local storage synchronization, falling back to cookie synchronization.')
 
@@ -65,7 +67,7 @@ setTimeout(() => {
 ## Documentation
 
 ```js
-localsync(key: string, action: (...args) => payload, handler: payload => {}, [opts: Object]): { start, stop, trigger, isRunning, isFallback }
+storagesync(key: string, action: (...args) => payload, handler: payload => {}, [opts: Object]): { start, stop, trigger, isRunning, isFallback }
 ```
 
 **opts**

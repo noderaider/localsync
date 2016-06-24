@@ -1,8 +1,8 @@
 [![NPM](https://raw.githubusercontent.com/noderaider/localsync/master/public/images/localsync.gif)](https://npmjs.com/packages/localsync)
 
-**a lightweight module to sync JS objects in realtime across tabs / windows of a browser.**
+### webrtcsync
 
-**Now a modular lerna repo! Synchronization strategies have been split out into separate packages.**
+**a lightweight module to sync JS objects in realtime across tabs / windows of a browser *WEBRTC VERSION*.**
 
 #### Features
 
@@ -17,16 +17,15 @@
 
 [![NPM](https://nodei.co/npm/localsync.png?stars=true&downloads=true)](https://nodei.co/npm/localsync/)
 
-
 ## Install
 
-`npm i -S localsync`
+`npm i -S webrtcsync`
 
 
 ## How to use
 
 ```js
-import localsync from 'localsync'
+import webrtcsync from 'webrtcsync'
 
 /** Create an action that will trigger a sync to other tabs. */
 const action = (userID, first, last) => ({ userID, first, last })
@@ -37,13 +36,13 @@ const handler = (value, old, url) => {
   // do something with value.userID
 }
 
-/** Create a synchronizer. localsync supports N number of synchronizers for different things across your app. */
-const usersync = localsync('user', action, handler)
+/** Create a synchronizer. webrtcsync supports N number of synchronizers for different things across your app. */
+const usersync = webrtcsync('user', action, handler)
 
 /** Start synchronizing. */
 usersync.start()
 
-/** IE / Edge do not support local storage across multiple tabs. localsync will automatically fallback to a cookie polling mechanism here. You don't need to do anything else. */
+/** IE / Edge do not support local storage across multiple tabs. webrtcsync will automatically fallback to a cookie polling mechanism here. You don't need to do anything else. */
 if(usersync.isFallback)
   console.warn('browser doesnt support local storage synchronization, falling back to cookie synchronization.')
 
@@ -65,7 +64,7 @@ setTimeout(() => {
 ## Documentation
 
 ```js
-localsync(key: string, action: (...args) => payload, handler: payload => {}, [opts: Object]): { start, stop, trigger, isRunning, isFallback }
+webrtcsync(key: string, action: (...args) => payload, handler: payload => {}, [opts: Object]): { start, stop, trigger, isRunning, isFallback }
 ```
 
 **opts**

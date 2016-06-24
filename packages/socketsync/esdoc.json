@@ -1,0 +1,11 @@
+{
+  "source": "./src/lib",
+  "destination": "./doc",
+  "index": "./README.md",
+  "package": "./package.json",
+  "coverage": true,
+  "includeSource": true,
+  "plugins": [
+    {"name": "esdoc-es7-plugin"}
+  ]
+}

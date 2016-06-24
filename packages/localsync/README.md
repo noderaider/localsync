@@ -2,8 +2,6 @@
 
 **a lightweight module to sync JS objects in realtime across tabs / windows of a browser.**
 
-**Now a modular lerna repo! Synchronization strategies have been split out into separate packages.**
-
 #### Features
 
 * Uses local storage event emitters to sync objects in realtime across tabs.
