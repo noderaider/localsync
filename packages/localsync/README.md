@@ -108,7 +108,7 @@ const { start, stop, trigger, isRunning, isFallback } = sync
 
 **action**: a function that will be called when this client's trigger function is invoked. The action will be passed any arguments provided to the trigger function and should return the payload to be delivered to other clients for the given localsync key.
 
-**handler**: a function that will be invoked on this client when any other client's trigger function is invoked. *NOTE: This handler will **NEVER** be called due to this clients trigger function being called, only other clients.*
+**handler**: a function that will be invoked on this client when any other client's trigger function is invoked. *NOTE: This handler will NEVER be called due to this clients trigger function being called, only other clients.*
 
 **opts**: An optional object argument that may be specified to control how localsync operates. Supported values are shown below.
 
