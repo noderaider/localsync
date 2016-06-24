@@ -137,3 +137,4 @@ const { start, stop, trigger, isRunning, isFallback } = sync
 `isRunning`     | `boolean`     | `false`                         | Is synchronization currently enabled
 `isFallback`    | `boolean`     | `false`                         | Is the selected mechanism a fallback strategy
 `isServer`      | `boolean`     | `false`                         | Is the current client running in a server environment
+
