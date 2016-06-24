@@ -4,6 +4,8 @@
 
 **:exclamation: v1.1.x: Now a modular lerna repo! Synchronization strategies have been split out into separate packages.**
 
+*See [my battle with browser tabs](https://medium.com/@noderaider/my-battle-with-browser-tabs-5c00ae8e3d2c) for detailed information regarding the issues localsync solves.*
+
 #### Features
 
 * Uses local storage event emitters to sync objects in realtime across tabs.
@@ -75,19 +77,19 @@ Internally, localsync is comprised of several small `sync` packages that all adh
 
 #### 1.x.x
 
-*Guaranteed synchronization between clients of the same browser (Chrome <=> Chrome, IE <=> IE, etc.)*
+*Guaranteed synchronization between clients of the same browser (Chrome :left_right_arrow: Chrome, IE :left_right_arrow: IE, etc.)*
 
 * **[localsync](https://npmjs.com/packages/localsync)** - Determines synchronization mechanism and invokes it.
 
 *Mechanism packages*
 
-* **[:bullettrain_front: storagesync](https://npmjs.com/packages/storagesync)** - Synchronizes data in a push fashion using local storage 'storage' event for a given browser.
+* **[:bullettrain_front: storagesync](https://npmjs.com/packages/storagesync)** - Synchronizes data in a push fashion using local storage `storage` event for a given browser.
 * **[:cookie: cookiesync](https://npmjs.com/packages/cookiesync)** - Synchronizes data via cookie polling mechanism for a given browser.
 * **[:computer: serversync](https://npmjs.com/packages/serversync)** - Mocks the localsync interface on server environments but does no actual synchronization (for now).
 
 #### 2.x.x (In Progress)
 
-*The primary goal of 2.0 is to enable **cross-browser** localsync (Chrome <=> IE, Firefox <=> Safari, etc.). The following additional mechanisms are being implemented to make this happen:*
+*The primary goal of 2.0 is to enable cross-browser localsync (Chrome :left_right_arrow: IE, Firefox :left_right_arrow: Safari, etc.). The following additional mechanisms are being implemented to make this happen:*
 
 * **[:rocket: webrtcsync](https://npmjs.com/packages/webrtcsync)** - Synchronizes data across any supporting browser using WebRTC technology.
 * **[:airplane: socketsync](https://npmjs.com/packages/socketsync)** - Synchronizes data across any supporting browser using web sockets technology (Fallback for WebRTC).
