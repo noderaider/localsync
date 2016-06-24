@@ -69,13 +69,13 @@ ___
 
 ## Structure and Roadmap
 
-**localsync has a singular purpose: to synchronize events from one client to many using a common interface and the least invasive mechanism for the current browsing medium.**
+localsync has a **singular** purpose: to synchronize events from one client to many using a common interface and the least invasive mechanism for the current browsing medium.
 
-Internally, localsync is comprised of several small 'sync' packages that all adhere to the common localsync interface. The main localsync package does no actual synchronization on its own but rather determines the most appropriate synchronization strategy and calls upon the necessary packages to invoke it. All the packages with brief descriptions are listed here:
+Internally, localsync is comprised of several small `sync` packages that all adhere to the common localsync interface. The main localsync package does no actual synchronization on its own but rather determines the most appropriate synchronization strategy and calls upon the necessary packages to invoke it. All the packages with brief descriptions are listed here:
 
 #### 1.x.x
 
-**Guaranteed synchronization between clients of the same browser (Chrome <=> Chrome, Firefox <=> Firefox, or IE <=> IE)**
+*Guaranteed synchronization between clients of the same browser (Chrome <=> Chrome, IE <=> IE, etc.)*
 
 * **[localsync](https://npmjs.com/packages/localsync)** - Determines synchronization mechanism and invokes it.
 
@@ -87,17 +87,19 @@ Internally, localsync is comprised of several small 'sync' packages that all adh
 
 #### 2.x.x (In Progress)
 
-**The primary goal of 2.0 is to enable localsync *cross-browser* (e.g. Chrome to FireFox synchronization) for a single localsync client channel. In addition to the above mechanisms, the following mechanisms are being implemented for 2.0.**
+*The primary goal of 2.0 is to enable **cross-browser** localsync (Chrome <=> IE, Firefox <=> Safari, etc.). The following additional mechanisms are being implemented to make this happen:*
 
 * **[:rocket: webrtcsync](https://npmjs.com/packages/webrtcsync)** - Synchronizes data across any supporting browser using WebRTC technology.
-* **[:airplane: socketsync](https://npmjs.com/packages/socketsync)** - Synchronizes data across any supporting browser using web sockets technology (fallback for browsers not supporting WebRTC).
+* **[:airplane: socketsync](https://npmjs.com/packages/socketsync)** - Synchronizes data across any supporting browser using web sockets technology (Fallback for WebRTC).
 
 ___
 
 ## API
 
 ```js
-localsync(key: string, action: (...args) => payload, handler: payload => {}, [opts: Object]): { start, stop, trigger, isRunning, isFallback }
+const sync = localsync(key: string, action: (...args) => payload, handler: payload => {}, [opts: Object])
+
+const { start, stop, trigger, isRunning, isFallback } = sync
 ```
 
 #### Input
@@ -106,30 +108,25 @@ localsync(key: string, action: (...args) => payload, handler: payload => {}, [op
 
 **action**: a function that will be called when this client's trigger function is invoked. The action will be passed any arguments provided to the trigger function and should return the payload to be delivered to other clients for the given localsync key.
 
-**handler**: a function that will be invoked on this client when any other client's trigger function is invoked. *NOTE: This handler will **NEVER** be called due to this clients trigger function being called, only other clients.*
+**handler**: a function that will be invoked on this client when any other client's trigger function is invoked. *NOTE: This handler will **NEVER** be called due to this clients trigger function being called, only other clients.
 
-**opts**: An optional object argument that may be specified to control how localsync operates. Supported values are shown in the table below.
+**opts**: An optional object argument that may be specified to control how localsync operates. Supported values are shown below.
 
-**name**    | **type**    | **default**   | **description**
---------    | --------    | -----------   | ---------------
-`tracing`   | `boolean`   | `false`       | toggles tracing for debugging purposes
-`logger`    | `Object`    | `console`     | the logger object to trace to
-`loglevel`  | `string`    | `'info'`      | the log level to use when tracing (`error`, `warn`, `info`, `trace`)
-
-**IE / Edge fallback props for `cookiesync`**
-
-**name**        | **type**      | **default**   | **description**
---------        | --------      | -----------   | ---------------
-`pollFrequency` | `number`      | `3000`        | the number in milliseconds that should be used for cookie polling
-`idLength`      | `number`      | `8`           | the number of characters to use for tracking the current instance (tab)
-`path`          | `string`      | `'/'`         | The path to use for cookies
-`secure`        | `boolean`     | `false`       | Whether to set the secure flag on cookies or not (not recommended)
-`httpOnly`      | `boolean`     | `false`       | Whether to set the http only flag on cookies or not
+**name**        | **type**  | **default** | **description**
+--------        | --------  | ----------- | ---------------
+`tracing`       | `boolean` | `false`     | toggles tracing for debugging purposes
+`logger`        | `Object`  | `console`   | the logger object to trace to
+`loglevel`      | `string`  | `'info'`    | the log level to use when tracing (`error`, `warn`, `info`, `trace`)
+`pollFrequency` | `number`  | `3000`      | `fallback: cookiesync` the number in milliseconds that should be used for cookie polling
+`idLength`      | `number`  | `8`         | `fallback: cookiesync` the number of characters to use for tracking the current instance (tab)
+`path`          | `string`  | `'/'`       | `fallback: cookiesync` The path to use for cookies
+`secure`        | `boolean` | `false`     | `fallback: cookiesync` Whether to set the secure flag on cookies or not (not recommended)
+`httpOnly`      | `boolean` | `false`     | `fallback: cookiesync` Whether to set the http only flag on cookies or not
 
 
 #### Output
 
-**Interface of returned localsync object**
+*Interface of returned localsync object*
 
 **name**        | **type**      | **defaults**                    | **description**
 --------        | --------      | -----------                     | ---------------
