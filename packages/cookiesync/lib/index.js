@@ -30,24 +30,23 @@ var mechanism = 'cookiesync';
  * @return {Object}                                 cookiesync instance with start, stop, trigger, isRunning, isFallback, and instanceID properties.
  */
 function cookiesync(key, action, handler) {
-  var _ref = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
-
-  var _ref$tracing = _ref.tracing;
-  var tracing = _ref$tracing === undefined ? false : _ref$tracing;
-  var _ref$logger = _ref.logger;
-  var logger = _ref$logger === undefined ? console : _ref$logger;
-  var _ref$logLevel = _ref.logLevel;
-  var logLevel = _ref$logLevel === undefined ? 'info' : _ref$logLevel;
-  var _ref$idLength = _ref.idLength;
-  var idLength = _ref$idLength === undefined ? 8 : _ref$idLength;
-  var _ref$pollFrequency = _ref.pollFrequency;
-  var pollFrequency = _ref$pollFrequency === undefined ? 3000 : _ref$pollFrequency;
-  var _ref$path = _ref.path;
-  var path = _ref$path === undefined ? '/' : _ref$path;
-  var _ref$secure = _ref.secure;
-  var secure = _ref$secure === undefined ? false : _ref$secure;
-  var _ref$httpOnly = _ref.httpOnly;
-  var httpOnly = _ref$httpOnly === undefined ? false : _ref$httpOnly;
+  var _ref = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {},
+      _ref$tracing = _ref.tracing,
+      tracing = _ref$tracing === undefined ? false : _ref$tracing,
+      _ref$logger = _ref.logger,
+      logger = _ref$logger === undefined ? console : _ref$logger,
+      _ref$logLevel = _ref.logLevel,
+      logLevel = _ref$logLevel === undefined ? 'info' : _ref$logLevel,
+      _ref$idLength = _ref.idLength,
+      idLength = _ref$idLength === undefined ? 8 : _ref$idLength,
+      _ref$pollFrequency = _ref.pollFrequency,
+      pollFrequency = _ref$pollFrequency === undefined ? 3000 : _ref$pollFrequency,
+      _ref$path = _ref.path,
+      path = _ref$path === undefined ? '/' : _ref$path,
+      _ref$secure = _ref.secure,
+      secure = _ref$secure === undefined ? false : _ref$secure,
+      _ref$httpOnly = _ref.httpOnly,
+      httpOnly = _ref$httpOnly === undefined ? false : _ref$httpOnly;
 
   should.exist(key);
   should.exist(action);
@@ -64,8 +63,8 @@ function cookiesync(key, action, handler) {
     try {
       var value = _reactCookie2.default.load(cookieKey, false);
       if (typeof value !== 'undefined') {
-        var _instanceID = value.instanceID;
-        var payload = value.payload;
+        var _instanceID = value.instanceID,
+            payload = value.payload;
 
         should.exist(_instanceID, 'cookiesync cookies must have an instanceID associated => ' + JSON.stringify(value));
         _instanceID.should.be.a('string').and.have.lengthOf(idLength);
@@ -105,6 +104,8 @@ function cookiesync(key, action, handler) {
 
   var intervalID = null;
   var start = function start() {
+    var sync = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
     log('cookiesync#start', instanceID);
     var last = loadCookie();
     if (!last) {
@@ -128,12 +129,17 @@ function cookiesync(key, action, handler) {
 
       if (JSON.stringify(last.payload) != JSON.stringify(current.payload)) {
         log('cookiesync#poll: INVOKE|instanceID =', instanceID, '|current.instanceID =', current.instanceID, '|last.instanceID =', last.instanceID, '|last.payload =', JSON.stringify(last.payload), '|current.payload =', JSON.stringify(current.payload));
-        handler(current.payload);
+        handler(current.payload, last ? last.payload : {}, last ? last.url || '' : '');
         last = current;
       } else {
         log('cookiesync#poll: noinvoke|instanceID =', instanceID, '|current.instanceID =', current.instanceID, '|last.instanceID =', last.instanceID, '|last.payload =', JSON.stringify(last.payload), '|current.payload =', JSON.stringify(current.payload));
       }
     }, pollFrequency);
+    if (sync) {
+      var current = loadCookie();
+      handler(current.payload, last ? last.payload : {}, last ? last.url || '' : '');
+      last = current;
+    }
     isRunning = true;
   };
 

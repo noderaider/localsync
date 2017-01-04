@@ -18,14 +18,13 @@ var mechanism = 'socketsync';
  * @return {Object}                             socketsync instance with start, stop, trigger, isRunning, and isFallback mock properties.
  */
 function socketsync(key, action, handler) {
-  var _ref = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
-
-  var _ref$tracing = _ref.tracing;
-  var tracing = _ref$tracing === undefined ? false : _ref$tracing;
-  var _ref$logger = _ref.logger;
-  var logger = _ref$logger === undefined ? console : _ref$logger;
-  var _ref$logLevel = _ref.logLevel;
-  var logLevel = _ref$logLevel === undefined ? 'info' : _ref$logLevel;
+  var _ref = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {},
+      _ref$tracing = _ref.tracing,
+      tracing = _ref$tracing === undefined ? false : _ref$tracing,
+      _ref$logger = _ref.logger,
+      logger = _ref$logger === undefined ? console : _ref$logger,
+      _ref$logLevel = _ref.logLevel,
+      logLevel = _ref$logLevel === undefined ? 'info' : _ref$logLevel;
 
   should.exist(key);
   should.exist(action);

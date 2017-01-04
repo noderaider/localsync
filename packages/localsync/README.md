@@ -137,7 +137,7 @@ const { start, stop, trigger, isRunning, isFallback } = sync
 
 **name**        | **type**      | **defaults**                    | **description**
 --------        | --------      | -----------                     | ---------------
-`start`         | `function`    | `N/A`                           | Call to start syncing. Accepts one boolean parameter (default false). If passed true, will run the synchronization on start (for session persistence).
+`start`         | `function`    | `N/A`                           | Call to start syncing. Accepts one boolean parameter (default false). If passed true, will run the synchronization on start.
 `stop`          | `function`    | `N/A`                           | Call to stop syncing
 `trigger`       | `function`    | `N/A`                           | Call to trigger a sync to occur to all other clients
 `mechanism`     | `string`      | `(storage|cookie|server)sync`   | The underlying mechanism that was selected for synchronization
@@ -145,3 +145,28 @@ const { start, stop, trigger, isRunning, isFallback } = sync
 `isFallback`    | `boolean`     | `false`                         | Is the selected mechanism a fallback strategy
 `isServer`      | `boolean`     | `false`                         | Is the current client running in a server environment
 
+___
+
+## Contributing
+
+To setup localsync for use in development run the following steps at CLI:
+
+```bash
+npm i -g lerna@latest
+git clone https://github.com/noderaider/localsync
+cd localsync
+lerna bootstrap
+lerna run start
+```
+
+Then from your project:
+
+```bash
+npm link ../localsync/packages/localsync
+# start your project, localsync should hot reload as you update its source code.
+```
+
+___
+
+
+<sup>Feature requests and pull requests encouraged!</sup>

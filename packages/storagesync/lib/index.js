@@ -25,14 +25,13 @@ var mechanism = 'storagesync';
  * @return {Object}                             storagesync instance with start, stop, trigger, isRunning, and isFallback properties.
  */
 function storagesync(key, action, handler) {
-  var _ref = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
-
-  var _ref$tracing = _ref.tracing;
-  var tracing = _ref$tracing === undefined ? false : _ref$tracing;
-  var _ref$logger = _ref.logger;
-  var logger = _ref$logger === undefined ? console : _ref$logger;
-  var _ref$logLevel = _ref.logLevel;
-  var logLevel = _ref$logLevel === undefined ? 'info' : _ref$logLevel;
+  var _ref = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {},
+      _ref$tracing = _ref.tracing,
+      tracing = _ref$tracing === undefined ? false : _ref$tracing,
+      _ref$logger = _ref.logger,
+      logger = _ref$logger === undefined ? console : _ref$logger,
+      _ref$logLevel = _ref.logLevel,
+      logLevel = _ref$logLevel === undefined ? 'info' : _ref$logLevel;
 
   should.exist(key);
   should.exist(action);
@@ -41,6 +40,7 @@ function storagesync(key, action, handler) {
     return tracing ? logger[logLevel].apply(logger, arguments) : function () {};
   };
   var isRunning = false;
+  var last = {};
 
   var trigger = function trigger() {
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
@@ -53,8 +53,18 @@ function storagesync(key, action, handler) {
   };
 
   var start = function start() {
+    var sync = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
     log('storagesync#start');
-    _localStorage2.default.on(key, handler);
+    _localStorage2.default.on(key, function (value) {
+      handler(value, last, '');
+      last = value;
+    });
+    if (sync) {
+      var value = _localStorage2.default.get(key);
+      handler(value, last, '');
+      last = value;
+    }
     isRunning = true;
   };
 
