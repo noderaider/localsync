@@ -18,6 +18,7 @@ export default function storagesync(key, action, handler, { tracing = false, log
   should.exist(handler)
   const log = (...args) => tracing ? logger[logLevel](...args) : () => {}
   let isRunning = false
+  let last = {}
 
   const trigger = (...args) => {
     log('storagesync#trigger', args)
@@ -25,9 +26,17 @@ export default function storagesync(key, action, handler, { tracing = false, log
     ls(key, value)
   }
 
-  const start = () => {
+  const start = (sync = false) => {
     log('storagesync#start')
-    ls.on(key, handler)
+    ls.on(key, (value) => {
+      handler(value, last, '')
+      last = value
+    })
+    if(sync) {
+      const value = ls.get(key)
+      handler(value, last, '')
+      last = value
+    }
     isRunning = true
   }
 

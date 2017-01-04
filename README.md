@@ -43,8 +43,13 @@ const handler = (value, old, url) => {
 /** Create a synchronizer. localsync supports N number of synchronizers for different things across your app. The key 'user' defines a localsync synchronization channel. */
 const usersync = localsync('user', action, handler)
 
-/** Start synchronizing. */
-usersync.start()
+/**
+ * Start synchronizing.
+ * Passing true tells localsync to poll the current storage mechanism once on
+ * start for any pre-existing state that may be there (cross session).
+ * Defaults to false - may change to true in a future major version.
+ */
+usersync.start(true)
 
 /** IE / Edge do not support local storage across multiple tabs. localsync will automatically fallback to a cookie polling mechanism here. You don't need to do anything else. */
 if(usersync.isFallback)
@@ -132,7 +137,7 @@ const { start, stop, trigger, isRunning, isFallback } = sync
 
 **name**        | **type**      | **defaults**                    | **description**
 --------        | --------      | -----------                     | ---------------
-`start`         | `function`    | `N/A`                           | Call to start syncing
+`start`         | `function`    | `N/A`                           | Call to start syncing. Accepts one boolean parameter (default false). If passed true, will run the synchronization on start.
 `stop`          | `function`    | `N/A`                           | Call to stop syncing
 `trigger`       | `function`    | `N/A`                           | Call to trigger a sync to occur to all other clients
 `mechanism`     | `string`      | `(storage|cookie|server)sync`   | The underlying mechanism that was selected for synchronization

@@ -58,7 +58,7 @@ export default function cookiesync(key, action, handler, { tracing = false, logg
   }
 
   let intervalID = null
-  const start = () => {
+  const start = (sync = false) => {
     log('cookiesync#start', instanceID)
     let last = loadCookie()
     if(!last) {
@@ -82,12 +82,17 @@ export default function cookiesync(key, action, handler, { tracing = false, logg
 
       if(JSON.stringify(last.payload) != JSON.stringify(current.payload)) {
         log('cookiesync#poll: INVOKE|instanceID =', instanceID, '|current.instanceID =', current.instanceID, '|last.instanceID =', last.instanceID, '|last.payload =', JSON.stringify(last.payload), '|current.payload =', JSON.stringify(current.payload))
-        handler(current.payload)
+        handler(current.payload, last ? last.payload : {}, last ? (last.url || '') : '')
         last = current
       } else {
         log('cookiesync#poll: noinvoke|instanceID =', instanceID, '|current.instanceID =', current.instanceID, '|last.instanceID =', last.instanceID, '|last.payload =', JSON.stringify(last.payload), '|current.payload =', JSON.stringify(current.payload))
       }
     }, pollFrequency)
+    if(sync) {
+      let current = loadCookie()
+      handler(current.payload, last ? last.payload : {}, last ? (last.url || '') : '')
+      last = current
+    }
     isRunning = true
   }
 
