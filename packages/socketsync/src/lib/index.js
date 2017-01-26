@@ -1,4 +1,4 @@
-const should = require('chai').should()
+import invariant from 'invariant'
 const mechanism = 'socketsync'
 
 /**
@@ -12,9 +12,9 @@ const mechanism = 'socketsync'
  * @return {Object}                             socketsync instance with start, stop, trigger, isRunning, and isFallback mock properties.
  */
 export default function socketsync(key, action, handler, { tracing = false, logger = console, logLevel = 'info' } = {}) {
-  should.exist(key)
-  should.exist(action)
-  should.exist(handler)
+  invariant(key)
+  invariant(action)
+  invariant(handler)
   const log = (...args) => tracing ? logger[logLevel](...args) : () => {}
   let isRunning = false
 
