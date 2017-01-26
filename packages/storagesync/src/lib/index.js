@@ -1,5 +1,5 @@
+import invariant from 'invariant'
 import ls from 'local-storage'
-const should = require('chai').should()
 const mechanism = 'storagesync'
 
 /**
@@ -13,9 +13,9 @@ const mechanism = 'storagesync'
  * @return {Object}                             storagesync instance with start, stop, trigger, isRunning, and isFallback properties.
  */
 export default function storagesync(key, action, handler, { tracing = false, logger = console, logLevel = 'info' } = {}) {
-  should.exist(key)
-  should.exist(action)
-  should.exist(handler)
+  invariant(key)
+  invariant(action)
+  invariant(handler)
   const log = (...args) => tracing ? logger[logLevel](...args) : () => {}
   let isRunning = false
   let last = {}
