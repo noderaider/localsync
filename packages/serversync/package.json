@@ -47,7 +47,8 @@
     "upgrade": "ncu -a && npm update"
   },
   "dependencies": {
-    "chai": "^3.0.0"
+    "chai": "^3.0.0",
+    "invariant": "^2.2.2"
   },
   "devDependencies": {
     "babel-cli": "^6.7.7",
