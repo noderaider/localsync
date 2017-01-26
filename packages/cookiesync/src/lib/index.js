@@ -1,5 +1,5 @@
+import invariant from 'invariant'
 import cookie from 'react-cookie'
-const should = require('chai').should()
 const mechanism = 'cookiesync'
 
 /**
@@ -18,9 +18,9 @@ const mechanism = 'cookiesync'
  * @return {Object}                                 cookiesync instance with start, stop, trigger, isRunning, isFallback, and instanceID properties.
  */
 export default function cookiesync(key, action, handler, { tracing = false, logger = console, logLevel = 'info', idLength = 8, pollFrequency = 3000, path = '/', secure = false, httpOnly = false } = {}) {
-  should.exist(key)
-  should.exist(action)
-  should.exist(handler)
+  invariant(key)
+  invariant(action)
+  invariant(handler)
   const log = (...args) => tracing ? logger[logLevel](...args) : () => {}
   const cookieOpts = { path, secure, httpOnly }
   const cookieKey = `cookiesync_fallback_${key}`
@@ -30,9 +30,9 @@ export default function cookiesync(key, action, handler, { tracing = false, logg
       const value = cookie.load(cookieKey, false)
       if(typeof value !== 'undefined') {
         const { instanceID, payload } = value
-        should.exist(instanceID, `cookiesync cookies must have an instanceID associated => ${JSON.stringify(value)}`)
-        instanceID.should.be.a('string').and.have.lengthOf(idLength)
-        should.exist(payload, `cookiesync cookies must have a payload associated => ${JSON.stringify(value)}`)
+        invariant(instanceID, `cookiesync cookies must have an instanceID associated => ${JSON.stringify(value)}`)
+        invariant(typeof instanceID === 'string' && instanceID.length === idLength)
+        invariant(payload, `cookiesync cookies must have a payload associated => ${JSON.stringify(value)}`)
       }
       log('cookiesync#loadCookie', value)
       return value
@@ -42,7 +42,7 @@ export default function cookiesync(key, action, handler, { tracing = false, logg
     }
   }
   const saveCookie = (...args) => {
-    args.should.be.lengthOf(1)
+    invariant(args.length === 1)
     const [ payload ] = args
     const value = { instanceID, payload }
     log('cookisync#saveCookie', instanceID, payload)
