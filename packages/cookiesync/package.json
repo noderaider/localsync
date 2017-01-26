@@ -48,6 +48,7 @@
   },
   "dependencies": {
     "chai": "^3.0.0",
+    "invariant": "^2.2.2",
     "react-cookie": "github:noderaider/react-cookie#select"
   },
   "devDependencies": {
