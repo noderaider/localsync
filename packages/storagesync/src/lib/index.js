@@ -13,9 +13,9 @@ const mechanism = 'storagesync'
  * @return {Object}                             storagesync instance with start, stop, trigger, isRunning, and isFallback properties.
  */
 export default function storagesync(key, action, handler, { tracing = false, logger = console, logLevel = 'info' } = {}) {
-  invariant(key)
-  invariant(action)
-  invariant(handler)
+  invariant(key, 'key is required')
+  invariant(action, 'action is required')
+  invariant(handler, 'handler is required')
   const log = (...args) => tracing ? logger[logLevel](...args) : () => {}
   let isRunning = false
   let last = {}
