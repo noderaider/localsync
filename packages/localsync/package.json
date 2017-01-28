@@ -1,6 +1,6 @@
 {
   "name": "localsync",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "a lightweight module to sync JS objects in realtime across tabs / windows of a browser.",
   "main": "lib/index.js",
   "files": [
@@ -47,11 +47,11 @@
     "upgrade": "ncu -a && npm update"
   },
   "dependencies": {
-    "cookiesync": "^1.2.0",
-    "serversync": "^1.2.0",
-    "socketsync": "^1.2.0",
-    "storagesync": "^1.2.0",
-    "webrtcsync": "^1.2.0"
+    "cookiesync": "^1.3.0",
+    "serversync": "^1.3.0",
+    "socketsync": "^1.3.0",
+    "storagesync": "^1.3.0",
+    "webrtcsync": "^1.3.0"
   },
   "devDependencies": {
     "babel-cli": "^6.7.7",

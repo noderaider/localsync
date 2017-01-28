@@ -1,6 +1,6 @@
 {
   "name": "storagesync",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "a lightweight module to sync JS objects in realtime across tabs / windows of a browser (local storage version).",
   "main": "lib/index.js",
   "files": [

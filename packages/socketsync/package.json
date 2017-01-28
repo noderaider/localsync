@@ -1,6 +1,6 @@
 {
   "name": "socketsync",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "a lightweight server-side module to sync JS objects in realtime across tabs / windows of a browser (socket version).",
   "main": "lib/index.js",
   "files": [
