@@ -18,9 +18,9 @@ const mechanism = 'cookiesync'
  * @return {Object}                                 cookiesync instance with start, stop, trigger, isRunning, isFallback, and instanceID properties.
  */
 export default function cookiesync(key, action, handler, { tracing = false, logger = console, logLevel = 'info', idLength = 8, pollFrequency = 3000, path = '/', secure = false, httpOnly = false } = {}) {
-  invariant(key)
-  invariant(action)
-  invariant(handler)
+  invariant(key, 'key is required')
+  invariant(action, 'action is required')
+  invariant(handler, 'handler is required')
   const log = (...args) => tracing ? logger[logLevel](...args) : () => {}
   const cookieOpts = { path, secure, httpOnly }
   const cookieKey = `cookiesync_fallback_${key}`
@@ -31,7 +31,7 @@ export default function cookiesync(key, action, handler, { tracing = false, logg
       if(typeof value !== 'undefined') {
         const { instanceID, payload } = value
         invariant(instanceID, `cookiesync cookies must have an instanceID associated => ${JSON.stringify(value)}`)
-        invariant(typeof instanceID === 'string' && instanceID.length === idLength)
+        invariant(typeof instanceID === 'string' && instanceID.length === idLength, 'instanceID must be a string')
         invariant(payload, `cookiesync cookies must have a payload associated => ${JSON.stringify(value)}`)
       }
       log('cookiesync#loadCookie', value)
@@ -42,7 +42,7 @@ export default function cookiesync(key, action, handler, { tracing = false, logg
     }
   }
   const saveCookie = (...args) => {
-    invariant(args.length === 1)
+    invariant(args.length === 1, 'should only have one argument')
     const [ payload ] = args
     const value = { instanceID, payload }
     log('cookisync#saveCookie', instanceID, payload)
