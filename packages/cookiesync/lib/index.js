@@ -5,13 +5,16 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = cookiesync;
 
+var _invariant = require('invariant');
+
+var _invariant2 = _interopRequireDefault(_invariant);
+
 var _reactCookie = require('react-cookie');
 
 var _reactCookie2 = _interopRequireDefault(_reactCookie);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var should = require('chai').should();
 var mechanism = 'cookiesync';
 
 /**
@@ -48,9 +51,9 @@ function cookiesync(key, action, handler) {
       _ref$httpOnly = _ref.httpOnly,
       httpOnly = _ref$httpOnly === undefined ? false : _ref$httpOnly;
 
-  should.exist(key);
-  should.exist(action);
-  should.exist(handler);
+  (0, _invariant2.default)(key, 'key is required');
+  (0, _invariant2.default)(action, 'action is required');
+  (0, _invariant2.default)(handler, 'handler is required');
   var log = function log() {
     return tracing ? logger[logLevel].apply(logger, arguments) : function () {};
   };
@@ -66,9 +69,9 @@ function cookiesync(key, action, handler) {
         var _instanceID = value.instanceID,
             payload = value.payload;
 
-        should.exist(_instanceID, 'cookiesync cookies must have an instanceID associated => ' + JSON.stringify(value));
-        _instanceID.should.be.a('string').and.have.lengthOf(idLength);
-        should.exist(payload, 'cookiesync cookies must have a payload associated => ' + JSON.stringify(value));
+        (0, _invariant2.default)(_instanceID, 'cookiesync cookies must have an instanceID associated => ' + JSON.stringify(value));
+        (0, _invariant2.default)(typeof _instanceID === 'string' && _instanceID.length === idLength, 'instanceID must be a string');
+        (0, _invariant2.default)(payload, 'cookiesync cookies must have a payload associated => ' + JSON.stringify(value));
       }
       log('cookiesync#loadCookie', value);
       return value;
@@ -82,7 +85,7 @@ function cookiesync(key, action, handler) {
       args[_key] = arguments[_key];
     }
 
-    args.should.be.lengthOf(1);
+    (0, _invariant2.default)(args.length === 1, 'should only have one argument');
     var payload = args[0];
 
     var value = { instanceID: instanceID, payload: payload };

@@ -5,13 +5,16 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = storagesync;
 
+var _invariant = require('invariant');
+
+var _invariant2 = _interopRequireDefault(_invariant);
+
 var _localStorage = require('local-storage');
 
 var _localStorage2 = _interopRequireDefault(_localStorage);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var should = require('chai').should();
 var mechanism = 'storagesync';
 
 /**
@@ -33,9 +36,9 @@ function storagesync(key, action, handler) {
       _ref$logLevel = _ref.logLevel,
       logLevel = _ref$logLevel === undefined ? 'info' : _ref$logLevel;
 
-  should.exist(key);
-  should.exist(action);
-  should.exist(handler);
+  (0, _invariant2.default)(key, 'key is required');
+  (0, _invariant2.default)(action, 'action is required');
+  (0, _invariant2.default)(handler, 'handler is required');
   var log = function log() {
     return tracing ? logger[logLevel].apply(logger, arguments) : function () {};
   };
