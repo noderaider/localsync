@@ -12,9 +12,9 @@ const mechanism = 'serversync'
  * @return {Object}                             serversync instance with start, stop, trigger, isRunning, and isFallback mock properties.
  */
 export default function serversync(key, action, handler, { tracing = false, logger = console, logLevel = 'info' } = {}) {
-  invariant(key)
-  invariant(action)
-  invariant(handler)
+  invariant(key, 'key is required')
+  invariant(action, 'action is required')
+  invariant(handler, 'handler is required')
   const log = (...args) => tracing ? logger[logLevel](...args) : () => {}
   let isRunning = false
 
