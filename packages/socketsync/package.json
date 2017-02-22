@@ -1,6 +1,6 @@
 {
   "name": "socketsync",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "description": "a lightweight server-side module to sync JS objects in realtime across tabs / windows of a browser (socket version).",
   "main": "lib/index.js",
   "files": [
@@ -48,8 +48,8 @@
   },
   "dependencies": {
     "invariant": "^2.2.2",
-    "local-storage": "github:noderaider/local-storage",
-    "react-cookie": "github:noderaider/react-cookie#select"
+    "local-storage": "1.4.2",
+    "react-cookie": "1.0.4"
   },
   "devDependencies": {
     "babel-cli": "^6.7.7",
