@@ -1,8 +1,78 @@
 {
-  "devDependencies": {
-    "lerna": "^2.2.0"
+  "name": "localsync",
+  "version": "1.4.0",
+  "description": "a lightweight module to sync JS objects in realtime across tabs / windows of a browser.",
+  "main": "lib/index.js",
+  "files": [
+    "lib",
+    "src",
+    "doc"
+  ],
+  "keywords": [
+    "sync",
+    "local",
+    "storage",
+    "cookies",
+    "stream",
+    "ie",
+    "fallback"
+  ],
+  "scripts": {
+    "start": "npm run build -- --watch",
+    "prebuild": "rimraf lib",
+    "build": "tsc --project tsconfig.build.json --rootDir src --outDir lib",
+    "build-stdio": "tsc-stdio --stdio --project tsconfig.build.json --rootDir src --outDir lib",
+    "test": "jest",
+    "preversion": "npm test"
   },
-  "workspaces": [
-    "packages/*"
-  ]
+  "dependencies": {
+    "invariant": "^2.2.2",
+    "local-storage": "^1.4.2",
+    "react-cookie": "^2.1.1"
+  },
+  "devDependencies": {
+    "@types/invariant": "^2.2.29",
+    "@types/jest": "^21.1.6",
+    "@types/node": "^8.0.52",
+    "@types/sinon": "^4.0.0",
+    "babel-core": "^6.26.0",
+    "babel-jest": "^21.2.0",
+    "babel-preset-env": "^1.6.1",
+    "cross-env": "^5.1.1",
+    "jest": "^21.2.1",
+    "rimraf": "^2.6.2",
+    "sinon": "^4.1.2",
+    "ts-jest": "^21.2.2",
+    "tslib": "^1.8.0",
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.1"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json"
+    ],
+    "testRegex": "/__tests__/.*\\.test\\.(ts|tsx)$",
+    "globals": {
+      "__JEST__": true,
+      "ts-jest": {
+        "useBabelrc": true
+      }
+    }
+  },
+  "author": "Cole Chamberlain <colewc@google.com> (https://github.com/cchamberlain)",
+  "bugs": {
+    "url": "https://github.com/noderaider/localsync/issues"
+  },
+  "homepage": "http://localsync.js.org",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noderaider/localsync.git"
+  }
 }
