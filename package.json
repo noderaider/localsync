@@ -46,6 +46,9 @@
     "tslint": "^5.8.0",
     "typescript": "^2.6.1"
   },
+  "peerDependencies": {
+    "react": "^15.0.0 || ^16.0.0"
+  },
   "jest": {
     "transform": {
       "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
@@ -73,8 +76,5 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/noderaider/localsync.git"
-  },
-  "peerDependencies": {
-    "react": "^16.1.1"
   }
 }
