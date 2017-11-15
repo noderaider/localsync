@@ -21,7 +21,6 @@
     "start": "npm run build -- --watch",
     "prebuild": "rimraf lib",
     "build": "tsc --project tsconfig.build.json --rootDir src --outDir lib",
-    "build-stdio": "tsc-stdio --stdio --project tsconfig.build.json --rootDir src --outDir lib",
     "test": "jest",
     "preversion": "npm test"
   },
@@ -74,5 +73,8 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/noderaider/localsync.git"
+  },
+  "peerDependencies": {
+    "react": "^16.1.1"
   }
 }

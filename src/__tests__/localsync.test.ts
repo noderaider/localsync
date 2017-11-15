@@ -1,5 +1,8 @@
+jest.mock("react");
+jest.mock("react-cookie");
 import localsync from "..";
 const localsyncAny = localsync as any;
+const fooBar = { foo: "bar" };
 
 describe("localsync", () => {
   const mechanisms = [ "storagesync", "cookiesync", "serversync", "socketsync", "webrtcsync" ];
@@ -10,14 +13,14 @@ describe("localsync", () => {
   describe("localsync", () => {
     test("should throw if no args passed", () => expect(() => localsyncAny()).toThrow());
     test("should throw if one arg passed", () => expect(() => localsyncAny("key")).toThrow());
-    test("should throw if two args passed", () => expect(() => localsyncAny("key", () => { foo: "bar"; })).toThrow());
+    test("should throw if two args passed", () => expect(() => localsyncAny("key", () => fooBar)).toThrow());
     test("should export an object", () => {
-      expect(typeof localsync("namesync", () => { foo: "bar"; }, value => {})).toBe("object");
+      expect(typeof localsync("namesync", () => fooBar, value => {})).toBe("object");
     });
 
     describe("adheres to localsync interface", () => {
       let controls = null;
-      beforeEach(() => { controls = localsync("namesync", () => { foo: "bar"; }, value => {}); });
+      beforeEach(() => { controls = localsync("namesync", () => fooBar, value => {}); });
       afterEach(() => { controls = null; });
 
       test("should have start property", () => expect(controls.start).toBeTruthy());
@@ -29,17 +32,17 @@ describe("localsync", () => {
       test("should have mechanism property", () => expect(controls.mechanism).toBeTruthy());
       test("should have mechanism string", () => expect(typeof controls.mechanism).toBe("string"));
       test("should have valid mechanism", () => expect(controls.mechanism).toBeTruthy());
-      test("should have isRunning property", () => expect(controls.isRunning).toBeTruthy());
+      test("should have isRunning property", () => expect(controls.isRunning).toBeDefined());
       test("should have isRunning boolean", () => expect(typeof controls.isRunning).toBe("boolean"));
-      test("should have isFallback property", () => expect(controls.isFallback).toBeTruthy());
+      test("should have isFallback property", () => expect(controls.isFallback).toBeDefined());
       test("should have isFallback boolean", () => expect(typeof controls.isFallback).toBe("boolean"));
-      test("should have isServer property", () => expect(controls.isServer).toBeTruthy());
+      test("should have isServer property", () => expect(controls.isServer).toBeDefined());
       test("should have isServer boolean", () => expect(typeof controls.isServer).toBe("boolean"));
     });
 
     describe("server environment", function() {
       let controls = null;
-      beforeEach(() => { controls = localsync("namesync", () => { foo: "bar"; }, value => {}); });
+      beforeEach(() => { controls = localsync("namesync", () => fooBar, value => {}); });
       afterEach(() => { controls = null; });
       test("mechanism should be serversync", () => {
         expect(controls.mechanism).toBeTruthy();
@@ -56,7 +59,7 @@ describe("localsync", () => {
         describe(`navigator ${JSON.stringify(nav)}`, () => {
           let controls = null;
           beforeEach(() => {
-            controls = localsync("namesync", () => { foo: "bar"; }, value => {}, null, nav);
+            controls = localsync("namesync", () => fooBar, value => {}, null, nav);
           });
           afterEach(() => {
             controls = null;
@@ -80,7 +83,7 @@ describe("localsync", () => {
         describe(`navigator ${JSON.stringify(nav)}`, () => {
           let controls = null;
           beforeEach(() => {
-            controls = localsync("namesync", () => { foo: "bar"; }, value => {}, null, nav);
+            controls = localsync("namesync", () => fooBar, value => {}, null, nav);
           });
           afterEach(() => {
             controls = null;

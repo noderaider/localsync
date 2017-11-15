@@ -1,10 +1,5 @@
 declare namespace Localsync {
-    enum LogLevel {
-        Info = "info",
-        Warn = "warn",
-        Error = "error",
-        Silent = "silent"
-    }
+    type LogLevel = "info" | "warn" | "error" | "silent";
 
     interface Opts {
         tracing: boolean;
