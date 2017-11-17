@@ -1,22 +1,9 @@
 {
   "name": "localsync",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "a lightweight module to sync JS objects in realtime across tabs / windows of a browser.",
   "main": "lib/index.js",
-  "files": [
-    "lib",
-    "src",
-    "doc"
-  ],
-  "keywords": [
-    "sync",
-    "local",
-    "storage",
-    "cookies",
-    "stream",
-    "ie",
-    "fallback"
-  ],
+  "types": "index.d.ts",
   "scripts": {
     "start": "npm run build -- --watch",
     "prebuild": "rimraf lib",
@@ -68,14 +55,23 @@
       }
     }
   },
-  "author": "Cole Chamberlain <colewc@google.com> (https://github.com/cchamberlain)",
-  "bugs": {
-    "url": "https://github.com/noderaider/localsync/issues"
-  },
-  "homepage": "http://localsync.js.org",
-  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/noderaider/localsync.git"
-  }
+  },
+  "keywords": [
+    "sync",
+    "local",
+    "storage",
+    "cookies",
+    "stream",
+    "ie",
+    "fallback"
+  ],
+  "author": "Cole Chamberlain <colewc@google.com> (https://github.com/cchamberlain)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/noderaider/localsync/issues"
+  },
+  "homepage": "http://localsync.js.org"
 }
