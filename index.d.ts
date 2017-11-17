@@ -18,4 +18,4 @@ export interface LocalsyncNavigator {
     appVersion?: string;
 }
 
-export default function localsync(key: string, action, handler, opts: Partial<Opts>, navigator);
+export default function localsync(key: string, action, handler, opts?: Partial<Opts>, navigator?);
