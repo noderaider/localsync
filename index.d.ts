@@ -15,3 +15,5 @@ interface LocalsyncNavigator {
     appName: string;
     appVersion?: string;
 }
+
+export default function localsync(key: string, action, handler, opts: Partial<Opts>, navigator);
