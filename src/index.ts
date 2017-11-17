@@ -21,13 +21,13 @@ const REGEX = {
  * @param  {boolean}  [options.httpOnly=false]      Flag to set the cookies httpOnly flag.
  * @return {Object}                                 cookiesync instance with start, stop, trigger, isRunning, isFallback, and instanceID properties.
  */
-export default function localsync(key: string, action, handler, opts: Partial<Localsync.Opts> = {}, navigator = getNavigator()) {
+export default function localsync(key: string, action, handler, opts: Partial<Opts> = {}, navigator = getNavigator()) {
     const sync = navigator === null ? serversync : isEdgeOrIE(navigator) ? cookiesync : storagesync;
-    const completeOpts: Localsync.Opts = { ...getDefaultOpts(), ...opts };
+    const completeOpts: Opts = { ...getDefaultOpts(), ...opts };
     return sync(key, action, handler, completeOpts);
 }
 
-function getDefaultOpts(): Localsync.Opts {
+function getDefaultOpts(): Opts {
     return {
         tracing: false,
         logger: console,
@@ -40,7 +40,7 @@ function getDefaultOpts(): Localsync.Opts {
     };
 }
 
-function getNavigator(): Localsync.Navigator {
+function getNavigator(): LocalsyncNavigator {
     return typeof window === "object" && process.env.NODE_ENV !== "test" ? window.navigator : null;
 }
 
