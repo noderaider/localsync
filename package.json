@@ -1,6 +1,6 @@
 {
   "name": "localsync",
-  "version": "1.5.6",
+  "version": "1.6.0",
   "description": "a lightweight module to sync JS objects in realtime across tabs / windows of a browser.",
   "main": "lib/index.js",
   "types": "index.d.ts",
