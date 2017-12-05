@@ -1,5 +1,5 @@
 import * as invariant from "invariant";
-import Cookie from "universal-cookie";
+import * as Cookies from "universal-cookie";
 const mechanism = "cookiesync";
 
 /**
@@ -21,13 +21,14 @@ export default function cookiesync(key, action, handler, { tracing = false, logg
   invariant(key, "key is required");
   invariant(action, "action is required");
   invariant(handler, "handler is required");
+  const cookies = new Cookies();
   const log = (...args) => tracing ? logger[logLevel](...args) : () => {};
   const cookieOpts = { path, secure, httpOnly };
   const cookieKey = `cookiesync_fallback_${key}`;
   const instanceID = (N => (Math.random().toString(36) + "00000000000000000").slice(2, N + 2))(idLength);
   const loadCookie = () => {
     try {
-      const value = Cookie.get(cookieKey, { doNotParse: false });
+      const value = cookies.get(cookieKey, { doNotParse: false });
       if (typeof value !== "undefined") {
         const { instanceID, payload } = value;
         invariant(instanceID, `cookiesync cookies must have an instanceID associated => ${JSON.stringify(value)}`);
@@ -38,7 +39,7 @@ export default function cookiesync(key, action, handler, { tracing = false, logg
       return value;
     } catch (err) {
       logger.error(err, `cookiesync#loadCookie => error occurred in cookiesync, wiping cookie with key ${cookieKey}`);
-      Cookie.remove(cookieKey);
+      cookies.remove(cookieKey);
     }
   };
   const saveCookie = (...args) => {
@@ -46,7 +47,7 @@ export default function cookiesync(key, action, handler, { tracing = false, logg
     const [ payload ] = args;
     const value = { instanceID, payload };
     log("cookisync#saveCookie", instanceID, payload);
-    Cookie.set(cookieKey, value, cookieOpts);
+    cookies.set(cookieKey, value, cookieOpts);
   };
 
   let isRunning = false;
