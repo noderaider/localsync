@@ -1,6 +1,6 @@
 {
   "name": "localsync",
-  "version": "1.6.2",
+  "version": "1.7.0",
   "description": "a lightweight module to sync JS objects in realtime across tabs / windows of a browser.",
   "main": "lib/index.js",
   "types": "index.d.ts",
@@ -14,8 +14,8 @@
   "dependencies": {
     "invariant": "^2.2.2",
     "local-storage": "^1.4.2",
-    "universal-cookie": "^2.0.0",
-    "tslib": "^1.8.0"
+    "tslib": "^1.8.0",
+    "universal-cookie": "^2.0.0"
   },
   "devDependencies": {
     "@types/invariant": "^2.2.29",
