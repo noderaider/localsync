@@ -1,5 +1,5 @@
 import * as invariant from "invariant";
-import * as cookie from "react-cookie";
+import * as cookie from "universal-cookie";
 const mechanism = "cookiesync";
 
 /**
@@ -27,7 +27,7 @@ export default function cookiesync(key, action, handler, { tracing = false, logg
   const instanceID = (N => (Math.random().toString(36) + "00000000000000000").slice(2, N + 2))(idLength);
   const loadCookie = () => {
     try {
-      const value = cookie.load(cookieKey, false);
+      const value = cookie.get(cookieKey, { doNotParse: false });
       if (typeof value !== "undefined") {
         const { instanceID, payload } = value;
         invariant(instanceID, `cookiesync cookies must have an instanceID associated => ${JSON.stringify(value)}`);
@@ -46,7 +46,7 @@ export default function cookiesync(key, action, handler, { tracing = false, logg
     const [ payload ] = args;
     const value = { instanceID, payload };
     log("cookisync#saveCookie", instanceID, payload);
-    cookie.save(cookieKey, value, cookieOpts);
+    cookie.set(cookieKey, value, cookieOpts);
   };
 
   let isRunning = false;

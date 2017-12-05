@@ -1,5 +1,4 @@
-jest.mock("react");
-jest.mock("react-cookie");
+jest.mock("universal-cookie");
 import localsync from "..";
 const localsyncAny = localsync as any;
 const fooBar = { foo: "bar" };

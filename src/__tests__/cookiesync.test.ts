@@ -1,4 +1,3 @@
-jest.mock("react");
 import cookiesync from "../cookiesync";
 
 describe("cookiesync", () => {
