@@ -1,4 +1,4 @@
-import invariant from 'invariant'
+import * as invariant from 'invariant'
 import cookie from 'react-cookie'
 const mechanism = 'cookiesync'
 
