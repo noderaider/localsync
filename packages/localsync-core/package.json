@@ -1,0 +1,48 @@
+{
+  "name": "localsync-core",
+  "version": "2.0.3",
+  "description": "Core utils / types library for localsync monorepo.",
+  "main": "lib/index.js",
+  "files": [
+    "lib",
+    "src",
+    "doc"
+  ],
+  "keywords": [
+    "sync",
+    "local",
+    "storage",
+    "cookies",
+    "stream",
+    "ie",
+    "fallback"
+  ],
+  "scripts": {
+    "start": "yarn build --watch",
+    "prebuild": "rm -rf lib",
+    "build": "tsc --build",
+    "test": "jest",
+    "prerelease": "yarn build && yarn test",
+    "release": "yarn publish --patch --non-interactive --access public"
+  },
+  "dependencies": {
+    "tslib": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.16",
+    "@types/node": "^12.6.9",
+    "jest": "^24.8.0",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.5.3"
+  },
+  "author": "Cole Chamberlain <colewc@google.com> (https://github.com/cchamberlain)",
+  "bugs": {
+    "url": "https://github.com/noderaider/localsync/issues"
+  },
+  "homepage": "http://localsync.js.org",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noderaider/localsync.git"
+  }
+}
