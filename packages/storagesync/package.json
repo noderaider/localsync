@@ -1,6 +1,6 @@
 {
   "name": "storagesync",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "a lightweight module to sync JS objects in realtime across tabs / windows of a browser (local storage version).",
   "main": "lib/index.js",
   "files": [
@@ -23,7 +23,7 @@
     "prebuild": "yarn clean",
     "build": "tsc --build",
     "prerelease": "yarn build",
-    "release": "yarn publish --patch --non-interactive --access public"
+    "release": "yarn publish --patch --non-interactive --no-git-tag-version --access public"
   },
   "dependencies": {
     "local-storage": "1.4.2",

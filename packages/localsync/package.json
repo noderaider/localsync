@@ -1,6 +1,6 @@
 {
   "name": "localsync",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "a lightweight module to sync JS objects in realtime across tabs / windows of a browser.",
   "main": "lib/index.js",
   "files": [
@@ -24,7 +24,7 @@
     "build": "tsc --build",
     "test": "jest",
     "prerelease": "yarn build && yarn test",
-    "release": "yarn publish --patch --non-interactive --access public",
+    "release": "yarn publish --patch --non-interactive --no-git-tag-version --access public",
     "_postrelease": "yarn release-gh-pages",
     "prerelease-gh-pages": "yarn doc",
     "release-gh-pages": "run-s gh-pages-subtree gh-pages-push gh-pages-delete",

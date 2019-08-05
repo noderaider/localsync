@@ -1,6 +1,6 @@
 {
   "name": "cookiesync",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "a lightweight module to sync JS objects in realtime across tabs / windows of a browser.",
   "main": "lib/index.js",
   "files": [
@@ -23,7 +23,7 @@
     "prebuild": "yarn clean",
     "build": "tsc --build",
     "prerelease": "yarn build",
-    "release": "yarn publish --patch --non-interactive --access public"
+    "release": "yarn publish --patch --non-interactive --no-git-tag-version --access public"
   },
   "dependencies": {
     "browser-cookies": "^1.2.0",
