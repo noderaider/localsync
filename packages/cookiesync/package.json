@@ -1,6 +1,6 @@
 {
   "name": "cookiesync",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "a lightweight module to sync JS objects in realtime across tabs / windows of a browser.",
   "main": "lib/index.js",
   "files": [
