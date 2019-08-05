@@ -8,6 +8,7 @@
     "yarn": ">=1.12.0"
   },
   "scripts": {
+    "clean": "yarn workspaces run clean",
     "build": "yarn workspaces run build",
     "test": "yarn workspace localsync-core test && yarn workspace localsync test",
     "release": "yarn workspaces run release"
