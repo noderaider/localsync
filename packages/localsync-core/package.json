@@ -1,6 +1,6 @@
 {
   "name": "localsync-core",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Core utils / types library for localsync monorepo.",
   "main": "lib/index.js",
   "files": [
