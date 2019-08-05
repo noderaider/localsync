@@ -1,6 +1,6 @@
 {
   "name": "localsync",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "a lightweight module to sync JS objects in realtime across tabs / windows of a browser.",
   "main": "lib/index.js",
   "files": [
@@ -36,8 +36,8 @@
     "gh-pages-delete": "git branch -D gh-pages"
   },
   "dependencies": {
-    "localsync-core": "^2.0.0",
     "cookiesync": "^2.0.0",
+    "localsync-core": "^2.0.0",
     "serversync": "^2.0.0",
     "storagesync": "^2.0.0",
     "tslib": "^1.10.0"
