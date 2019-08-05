@@ -1,6 +1,6 @@
 {
   "name": "storagesync",
-  "version": "1.4.0",
+  "version": "2.0.0",
   "description": "a lightweight module to sync JS objects in realtime across tabs / windows of a browser (local storage version).",
   "main": "lib/index.js",
   "files": [
@@ -18,41 +18,24 @@
     "fallback"
   ],
   "scripts": {
-    "start": "run-p build-watch test-watch",
-    "clean": "run-p clean-lib clean-doc clean-test",
-    "clean-lib": "rimraf lib",
-    "clean-doc": "rimraf doc",
+    "start": "yarn build --watch",
+    "clean": "rm -rf lib tsconfig.tsbuildinfo",
     "prebuild": "yarn clean",
-    "build": "babel src -d lib",
-    "build-watch": "yarn build -- --watch",
-    "test": "jest",
-    "prerelease": "yarn test",
-    "release": "npm version patch && npm publish",
-    "postrelease": "yarn release-gh-pages",
-    "prerelease-gh-pages": "yarn doc",
-    "release-gh-pages": "run-s gh-pages-subtree gh-pages-push gh-pages-delete",
-    "postrelease-gh-pages": "yarn clean-doc",
-    "predoc": "rimraf doc",
-    "doc": "esdoc -c ./esdoc.json && ncp CNAME doc/CNAME",
-    "gh-pages-subtree": "git subtree split --prefix doc -b gh-pages",
-    "gh-pages-push": "git push -f origin gh-pages:gh-pages",
-    "gh-pages-delete": "git branch -D gh-pages"
+    "build": "tsc --build",
+    "prerelease": "yarn build",
+    "release": "yarn publish --patch --non-interactive --access public"
   },
   "dependencies": {
     "local-storage": "1.4.2",
+    "localsync-core": "^2.0.0",
     "tslib": "^1.10.0"
   },
   "devDependencies": {
+    "@types/local-storage": "^1.4.0",
     "@types/node": "^12.6.9",
-    "babel-register": "latest",
-    "jest": "^24.8.0",
-    "ncp": "^2.0.0",
-    "npm-run-all": "^2.1.1",
-    "rewire": "^2.5.1",
-    "rimraf": "^2.5.2",
     "typescript": "^3.5.3"
   },
-  "author": "Cole Chamberlain <cole.chamberlain@gmail.com> (https://github.com/cchamberlain)",
+  "author": "Cole Chamberlain <colewc@google.com> (https://github.com/cchamberlain)",
   "bugs": {
     "url": "https://github.com/noderaider/localsync/issues"
   },

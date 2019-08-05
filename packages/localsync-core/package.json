@@ -19,7 +19,8 @@
   ],
   "scripts": {
     "start": "yarn build --watch",
-    "prebuild": "rm -rf lib",
+    "clean": "rm -rf lib tsconfig.tsbuildinfo",
+    "prebuild": "yarn clean",
     "build": "tsc --build",
     "test": "jest",
     "prerelease": "yarn build && yarn test",

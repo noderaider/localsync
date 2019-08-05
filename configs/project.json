@@ -1,0 +1,10 @@
+{
+  "extends": "./base",
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "module": "commonjs",
+    "target": "ES6"
+  }
+}

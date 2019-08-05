@@ -2,10 +2,10 @@ sudo: false
 language: node_js
 node_js:
   - "node"
-  - "6"
-  - "5"
-  - "4"
+  - "12"
+  - "11"
+  - "10"
 after_success: npm run coverage
 notifications:
   email:
-    - cole.chamberlain@gmail.com
+    - colewc@google.com
