@@ -134,13 +134,12 @@ const { start, stop, trigger, isRunning, isFallback } = sync;
 
 **`FallbackOptions`**
 
-| **name**        | **type**  | **default** | **description**                                                                           |
-| --------------- | --------- | ----------- | ----------------------------------------------------------------------------------------- |
-| `level`         | `string`  | `'INFO'`    | the log level to use when tracing (`ERROR`, `WARN`, `INFO`, `DEBUG`)                      |
-| `pollFrequency` | `number`  | `3000`      | `fallback: cookiesync` the number in milliseconds that should be used for cookie polling  |
-| `path`          | `string`  | `'/'`       | `fallback: cookiesync` The path to use for cookies                                        |
-| `secure`        | `boolean` | `false`     | `fallback: cookiesync` Whether to set the secure flag on cookies or not (not recommended) |
-| `httpOnly`      | `boolean` | `false`     | `fallback: cookiesync` Whether to set the http only flag on cookies or not                |
+| **name**        | **type**  | **default** | **description**                                                    |
+| --------------- | --------- | ----------- | ------------------------------------------------------------------ |
+| `pollFrequency` | `number`  | `3000`      | The number in milliseconds that should be used for cookie polling  |
+| `path`          | `string`  | `'/'`       | The path to use for cookies                                        |
+| `secure`        | `boolean` | `false`     | Whether to set the secure flag on cookies or not (not recommended) |
+| `httpOnly`      | `boolean` | `false`     | Whether to set the http only flag on cookies or not                |
 
 #### Output
 

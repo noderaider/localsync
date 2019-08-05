@@ -1,6 +1,6 @@
 {
   "name": "serversync",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "a lightweight server-side module to sync JS objects in realtime across tabs / windows of a browser.",
   "main": "lib/index.js",
   "files": [
@@ -23,7 +23,7 @@
     "prebuild": "yarn clean",
     "build": "tsc --build",
     "prerelease": "yarn build",
-    "release": "yarn publish --patch --non-interactive --access public"
+    "release": "yarn publish --patch --non-interactive --no-git-tag-version --access public"
   },
   "dependencies": {
     "localsync-core": "^2.0.0",
