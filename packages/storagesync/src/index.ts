@@ -1,0 +1,1 @@
+export { storagesync } from "./storagesync";

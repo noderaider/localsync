@@ -1,7 +1,7 @@
 {
-  "name": "localsync",
-  "version": "2.0.0",
-  "description": "a lightweight module to sync JS objects in realtime across tabs / windows of a browser.",
+  "name": "localsync-core",
+  "version": "2.0.3",
+  "description": "Core utils / types library for localsync monorepo.",
   "main": "lib/index.js",
   "files": [
     "lib",
@@ -19,34 +19,20 @@
   ],
   "scripts": {
     "start": "yarn build --watch",
-    "clean": "rm -rf lib doc tsconfig.tsbuildinfo",
+    "clean": "rm -rf lib tsconfig.tsbuildinfo",
     "prebuild": "yarn clean",
     "build": "tsc --build",
     "test": "jest",
     "prerelease": "yarn build && yarn test",
-    "release": "yarn publish --patch --non-interactive --access public",
-    "postrelease": "yarn release-gh-pages",
-    "prerelease-gh-pages": "yarn doc",
-    "release-gh-pages": "run-s gh-pages-subtree gh-pages-push gh-pages-delete",
-    "postrelease-gh-pages": "yarn clean-doc",
-    "predoc": "rm -rf doc",
-    "doc": "esdoc -c ./esdoc.json && ncp CNAME doc/CNAME",
-    "gh-pages-subtree": "git subtree split --prefix doc -b gh-pages",
-    "gh-pages-push": "git push -f origin gh-pages:gh-pages",
-    "gh-pages-delete": "git branch -D gh-pages"
+    "release": "yarn publish --patch --non-interactive --access public"
   },
   "dependencies": {
-    "localsync-core": "^2.0.0",
-    "cookiesync": "^2.0.0",
-    "serversync": "^2.0.0",
-    "storagesync": "^2.0.0",
     "tslib": "^1.10.0"
   },
   "devDependencies": {
     "@types/jest": "^24.0.16",
     "@types/node": "^12.6.9",
     "jest": "^24.8.0",
-    "npm-run-all": "^2.1.1",
     "ts-jest": "^24.0.2",
     "typescript": "^3.5.3"
   },
